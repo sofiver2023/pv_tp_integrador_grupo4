@@ -1,19 +1,17 @@
 import { useState, useEffect } from "react";
 import {
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  Paper,
+  Grid,
+  Card,
+  CardContent,
+  Typography,
   TextField,
   CircularProgress,
   Alert,
   Box,
-  Typography,
+  Avatar,
+  Chip,
 } from "@mui/material";
-import ClienteRow from "../components/common/ClienteRow";
+import PersonIcon from "@mui/icons-material/Person";
 
 function ListaClientes() {
   const [clientes, setClientes] = useState([]);
@@ -83,25 +81,46 @@ function ListaClientes() {
       )}
 
       {!cargando && !error && (
-        <TableContainer component={Paper}>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Nombre Completo</TableCell>
-                <TableCell>Email</TableCell>
-                <TableCell>Teléfono</TableCell>
-                <TableCell>Ciudad</TableCell>
-                <TableCell align="center">Acciones</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {clientesFiltrados.map((cliente) => (
-                <ClienteRow key={cliente.id} cliente={cliente} />
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
+        <Grid container spacing={3}>
+          {clientesFiltrados.map((cliente) => (
+            <Grid item xs={12} sm={6} md={4} key={cliente.id}>
+              <Card
+                elevation={3}
+                sx={{
+                  height: "100%",
+                  display: "flex",
+                  flexDirection: "column",
+                  transition: "transform 0.2s",
+                  "&:hover": { transform: "translateY(-4px)" },
+                }}
+              >
+                <CardContent>
+                  <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
+                    <Avatar sx={{ marginRight: 2, bgcolor: "primary.main" }}>
+                      <PersonIcon />
+                    </Avatar>
+                    <Box>
+                      <Typography variant="h6">
+                        {cliente.name.firstname} {cliente.name.lastname}
+                      </Typography>
+                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
+                    </Box>
+                  </Box>
+
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    📧 {cliente.email}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" gutterBottom>
+                    📞 {cliente.phone}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    📍 {cliente.address.city}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
       )}
 
       {clientesFiltrados.length === 0 && !cargando && !error && (
@@ -111,7 +130,6 @@ function ListaClientes() {
           </Alert>
         </Box>
       )}
-      
     </Box>
   );
 }
