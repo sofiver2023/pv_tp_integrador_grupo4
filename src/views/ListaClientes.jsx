@@ -10,14 +10,21 @@ import {
   Box,
   Avatar,
   Chip,
+  Fab,
+  Modal,
+  Snackbar,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import AltaClienteForm from "../components/common/AltaClienteForm";
 
 function ListaClientes() {
   const [clientes, setClientes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [modalAbierto, setModalAbierto] = useState(false);
+  const [mensajeExito, setMensajeExito] = useState(false);
 
   useEffect(() => {
     const obtenerClientes = async () => {
@@ -42,7 +49,6 @@ function ListaClientes() {
     obtenerClientes();
   }, []);
 
-  // Filtrado dinámico por apellido o ciudad
   const clientesFiltrados = clientes.filter((cliente) => {
     const textoBusqueda = busqueda.toLowerCase();
     const apellido = cliente.name.lastname.toLowerCase();
@@ -53,20 +59,35 @@ function ListaClientes() {
     );
   });
 
+  const handleClienteCreado = (nuevoCliente) => {
+    setClientes((prev) => [...prev, nuevoCliente]);
+    setModalAbierto(false);
+    setMensajeExito(true);
+  };
+
   return (
-    <Box sx={{ padding: 3 }}>
+    <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
       <Typography variant="h4" gutterBottom>
         Gestión de Clientes
       </Typography>
 
-      <TextField
-        label="Buscar por apellido o ciudad"
-        variant="outlined"
-        fullWidth
-        sx={{ marginBottom: 3 }}
-        value={busqueda}
-        onChange={(e) => setBusqueda(e.target.value)}
-      />
+      <Box sx={{ display: "flex", gap: 2, marginBottom: 3 }}>
+        <TextField
+          label="Buscar por apellido o ciudad"
+          variant="outlined"
+          fullWidth
+          value={busqueda}
+          onChange={(e) => setBusqueda(e.target.value)}
+        />
+        <Fab
+          color="primary"
+          aria-label="Agregar cliente"
+          onClick={() => setModalAbierto(true)}
+          sx={{ flexShrink: 0 }}
+        >
+          <PersonAddIcon />
+        </Fab>
+      </Box>
 
       {cargando && (
         <Box sx={{ display: "flex", justifyContent: "center", padding: 4 }}>
@@ -81,7 +102,7 @@ function ListaClientes() {
       )}
 
       {!cargando && !error && (
-        <Grid container spacing={3}>
+        <Grid container spacing={3} justifyContent="center">
           {clientesFiltrados.map((cliente) => (
             <Grid item xs={12} sm={6} md={4} key={cliente.id}>
               <Card
@@ -94,17 +115,22 @@ function ListaClientes() {
                   "&:hover": { transform: "translateY(-4px)" },
                 }}
               >
-                <CardContent>
-                  <Box sx={{ display: "flex", alignItems: "center", marginBottom: 2 }}>
-                    <Avatar sx={{ marginRight: 2, bgcolor: "primary.main" }}>
+                <CardContent sx={{ textAlign: "center" }}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      marginBottom: 2,
+                    }}
+                  >
+                    <Avatar sx={{ marginBottom: 1, bgcolor: "primary.main" }}>
                       <PersonIcon />
                     </Avatar>
-                    <Box>
-                      <Typography variant="h6">
-                        {cliente.name.firstname} {cliente.name.lastname}
-                      </Typography>
-                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
-                    </Box>
+                    <Typography variant="h6">
+                      {cliente.name.firstname} {cliente.name.lastname}
+                    </Typography>
+                    <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
                   </Box>
 
                   <Typography variant="body2" color="text.secondary" gutterBottom>
@@ -130,6 +156,35 @@ function ListaClientes() {
           </Alert>
         </Box>
       )}
+
+      <Modal open={modalAbierto} onClose={() => setModalAbierto(false)}>
+        <Box
+          sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 24,
+          }}
+        >
+          <AltaClienteForm
+            onClienteCreado={handleClienteCreado}
+            onCancelar={() => setModalAbierto(false)}
+          />
+        </Box>
+      </Modal>
+
+      <Snackbar
+        open={mensajeExito}
+        autoHideDuration={3000}
+        onClose={() => setMensajeExito(false)}
+      >
+        <Alert severity="success" onClose={() => setMensajeExito(false)}>
+          Cliente creado correctamente
+        </Alert>
+      </Snackbar>
     </Box>
   );
 }
