@@ -103,6 +103,15 @@ function ListaClientes() {
           </Table>
         </TableContainer>
       )}
+
+      {clientesFiltrados.length === 0 && !cargando && !error && (
+        <Box sx={{ textAlign: "center", padding: 4 }}>
+          <Alert severity="info">
+            No se encontraron clientes con ese criterio de búsqueda.
+          </Alert>
+        </Box>
+      )}
+      
     </Box>
   );
 }
