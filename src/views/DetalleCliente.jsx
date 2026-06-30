@@ -40,24 +40,24 @@ const DetalleCliente = () => {
         }
     };
 
-    if (cargando) return <Box sx={{ p: 4 }}><CircularProgress /></Box>;
-    if (error) return <Box sx={{ p: 4 }}><Alert severity="error">{error}</Alert></Box>;
-    if (eliminado) return <Box sx={{ p: 4 }}><Alert severity="success">Cliente eliminado correctamente.</Alert></Box>;
+    if (cargando) return <Box sx={{ p: 4, textAlign: 'center' }}><CircularProgress /></Box>;
+    if (error) return <Box sx={{ p: { xs: 2, sm: 4 } }}><Alert severity="error">{error}</Alert></Box>;
+    if (eliminado) return <Box sx={{ p: { xs: 2, sm: 4 } }}><Alert severity="success">Cliente eliminado correctamente.</Alert></Box>;
 
     return (
-        <Box sx={{ p: 4, maxWidth: 600, mx: 'auto' }}>
+        <Box sx={{ p: { xs: 2, sm: 4 }, maxWidth: 600, mx: 'auto' }}>
             <Button variant="outlined" onClick={() => navigate('/clientes')} sx={{ mb: 2 }}>
                 ← Volver
             </Button>
 
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" sx={{ fontSize: { xs: '1.5rem', sm: '2.125rem' } }} gutterBottom>
                 Ficha del Cliente
             </Typography>
 
             <Card>
                 <CardContent>
                     <Typography variant="h6">{cliente.name.firstname} {cliente.name.lastname}</Typography>
-                    <Typography>Email: {cliente.email}</Typography>
+                    <Typography sx={{ wordBreak: 'break-word' }}>Email: {cliente.email}</Typography>
                     <Typography>Teléfono: {cliente.phone}</Typography>
 
                     <Divider sx={{ my: 2 }} />
@@ -75,7 +75,12 @@ const DetalleCliente = () => {
 
                     {admin?.sector === 'Gerencia' && (
                         <Box sx={{ mt: 3 }}>
-                            <Button variant="contained" color="error" onClick={handleEliminar}>
+                            <Button
+                                variant="contained"
+                                color="error"
+                                fullWidth
+                                onClick={handleEliminar}
+                            >
                                 Eliminar Cliente de la Base de Datos
                             </Button>
                         </Box>
