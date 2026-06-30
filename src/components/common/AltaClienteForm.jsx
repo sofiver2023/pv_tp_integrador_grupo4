@@ -24,7 +24,7 @@ function AltaClienteForm({ onClienteCreado, onCancelar }) {
         }),
       });
 
-      if (!respuesta.ok) {
+      if (respuesta.status !== 200 && respuesta.status !== 201) {
         throw new Error("No se pudo crear el cliente");
       }
 

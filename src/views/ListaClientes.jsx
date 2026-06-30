@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -15,13 +16,14 @@ import {
   Modal,
   Snackbar,
   IconButton,
+  Button,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AltaClienteForm from "../components/common/AltaClienteForm";
-import EditarClienteForm from "../components/common/EditarClienteForm";
+import Footer from "../components/common/Footer.jsx";
 
 function ListaClientes() {
   const [clientes, setClientes] = useState([]);
@@ -29,8 +31,8 @@ function ListaClientes() {
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const [modalAbierto, setModalAbierto] = useState(false);
-  const [clienteEditando, setClienteEditando] = useState(null);
   const [mensajeExito, setMensajeExito] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const obtenerClientes = async () => {
@@ -71,14 +73,6 @@ function ListaClientes() {
     setMensajeExito("Cliente creado correctamente");
   };
 
-  const handleClienteEditado = (clienteActualizado) => {
-    setClientes((prev) =>
-      prev.map((c) => (c.id === clienteActualizado.id ? clienteActualizado : c))
-    );
-    setClienteEditando(null);
-    setMensajeExito("Cliente actualizado correctamente");
-  };
-
   const handleEliminar = async (id) => {
     const confirmar = window.confirm("¿Seguro que querés eliminar este cliente?");
     if (!confirmar) return;
@@ -101,6 +95,7 @@ function ListaClientes() {
   };
 
   return (
+    <>
     <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
       <Typography variant="h4" gutterBottom>
         Gestión de Clientes
@@ -180,13 +175,11 @@ function ListaClientes() {
                 </CardContent>
 
                 <CardActions sx={{ justifyContent: "center", paddingBottom: 2 }}>
-                  <IconButton
-                    color="warning"
-                    aria-label="Editar cliente"
-                    onClick={() => setClienteEditando(cliente)}
+                  <Button variant="outlined"
+                    onClick={() => navigate(`/clientes/${cliente.id}`)}
                   >
-                    <EditIcon />
-                  </IconButton>
+                    Ver ficha completa
+                  </Button>
                   <IconButton
                     color="error"
                     aria-label="Eliminar cliente"
@@ -228,28 +221,6 @@ function ListaClientes() {
         </Box>
       </Modal>
 
-      <Modal open={!!clienteEditando} onClose={() => setClienteEditando(null)}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            borderRadius: 2,
-            boxShadow: 24,
-          }}
-        >
-          {clienteEditando && (
-            <EditarClienteForm
-              cliente={clienteEditando}
-              onClienteEditado={handleClienteEditado}
-              onCancelar={() => setClienteEditando(null)}
-            />
-          )}
-        </Box>
-      </Modal>
-
       <Snackbar
         open={!!mensajeExito}
         autoHideDuration={3000}
@@ -260,6 +231,8 @@ function ListaClientes() {
         </Alert>
       </Snackbar>
     </Box>
+    <Footer />
+    </>
   );
 }
 

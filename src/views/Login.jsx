@@ -19,15 +19,14 @@ const Login = () => {
             login(nombre, sector);
             navigate('/clientes');
         } else {
-            alert("Por favor, completa el nombre y selecciona un sector.");
+            Snackbar("Por favor, completa el nombre y selecciona un sector.");
         }
     };
 
     return (
         <Box sx={{ p: 3, textAlign: 'center', width:'500px', m:'auto'}}>
-            <Header></Header>
             <Typography variant="h5" gutterBottom>
-                Acceso Administrador
+                ¡Bienvenido!
             </Typography>
 
             <form onSubmit={handleSubmit}>

@@ -18,14 +18,14 @@ const Header = () => {
     return (
         <AppBar position="static" sx={{ bgcolor: '#333' }}>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
-                <Typography variant="h6">
-                    Panel Clientes CRM
+                <Typography variant="h6" sx={{ fontWeight: "bold" }}>
+                    CRM - Gestión de Clientes
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                     <Typography variant="body1">
                         Hola <b>{admin.nombre}</b> - Sector: <b>{admin.sector}</b>
                     </Typography>
-                    <Button color="inherit" variant="outlined" onClick={handleLogout}>
+                    <Button color="inherit" variant="contained" onClick={handleLogout}>
                         Cerrar Sesión
                     </Button>
                 </Box>

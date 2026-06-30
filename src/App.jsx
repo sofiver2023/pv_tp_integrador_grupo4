@@ -3,7 +3,7 @@ import { AdminProvider } from './context/AdminContext';
 import Login from './views/Login.jsx';
 import ListaClientes from "./views/ListaClientes";
 import RutaProtegida from './components/layout/RutaProtegidaTest.jsx';
-import Footer from "./components/common/Footer";
+import DetalleCliente from "./views/DetalleCliente";
 import "./App.css";
 
 const App = () => { 
@@ -21,9 +21,16 @@ const App = () => {
             }/>
 
           <Route path="/" element={<Navigate to="/login" />} />
+
+          <Route path="/clientes/:id"
+            element={
+              <RutaProtegida>
+                  <DetalleCliente />
+              </RutaProtegida>
+            }
+          />
         </Routes>
 
-        <Footer />
       </BrowserRouter>
     </AdminProvider>
   );

@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import PeopleAltIcon from "@mui/icons-material/ShoppingCart";
 
 function Footer() {
   return (
@@ -15,7 +15,7 @@ function Footer() {
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginBottom: 1 }}>
-            <ShoppingCartIcon />
+            <PeopleAltIcon />
             <Typography variant="h6">Gestión de Clientes</Typography>
           </Box>
           <Typography variant="body2" sx={{ fontWeight: "bold" }}>
