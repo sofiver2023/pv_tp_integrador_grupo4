@@ -4,7 +4,7 @@ import Login from './views/Login.jsx';
 import ListaClientes from "./views/ListaClientes";
 import RutaProtegida from './components/layout/RutaProtegidaTest.jsx';
 import DetalleCliente from "./views/DetalleCliente";
-import "./App.css";
+import Dashboard from './views/Dashboard.jsx';
 
 const App = () => { 
   return (
@@ -12,10 +12,12 @@ const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
 
           <Route path="/clientes"
             element={
               <RutaProtegida>
+                
                 <ListaClientes />
               </RutaProtegida>
             }/>

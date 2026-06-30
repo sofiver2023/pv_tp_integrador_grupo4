@@ -17,7 +17,7 @@ const Login = () => {
 
         if (nombre !== '' && sector !== '') {
             login(nombre, sector);
-            navigate('/clientes');
+            navigate('/dashboard');
         } else {
             Snackbar("Por favor, completa el nombre y selecciona un sector.");
         }
@@ -39,7 +39,7 @@ const Login = () => {
                     />
                 </Box>
 
-                <Box sx={{ mb: 2 }}>
+                <Box sx={{ mb: 2 , textAlign:'start'}}>
                     <TextField
                         select
                         label="Sector"
