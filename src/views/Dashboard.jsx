@@ -6,7 +6,7 @@ import Footer from "../components/common/Footer";
 function Dashboard() {
     return (<Box>
         <Header></Header>
-        <ListaClientes></ListaClientes>
+        <h1>DASHBOARD</h1>
         <Footer></Footer>
     </Box>);
 }

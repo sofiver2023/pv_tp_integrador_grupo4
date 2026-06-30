@@ -22,7 +22,7 @@ const Login = () => {
         e.preventDefault();
 
         login(nombre, sector);
-        navigate('/dashboard');
+        navigate('/clientes');
         
     };
 
