@@ -1,16 +1,13 @@
-# React + Vite
+# Panel de Control de Clientes en Tiempo Real
+### Trabajo Práctico Integrador - Programación Visual
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
 
-Currently, two official plugins are available:
+Este proyecto consiste en el desarrollo de una aplicación web funcional y evolutiva que actúa como un panel de control de clientes, conectado de forma asincrónica a una API en la nube (FakeStore API). La aplicación implementa una autenticación simulada, gestión de estado global y control de permisos por roles. El proyecto fue creado con Vite con plantilla de React y organizado en componentes funcionales con estilo para una interfaz clara y amigable.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+# INTEGRANTES DEL GRUPO
+* Jonatan Rolando Garcia Acha - "Jona255"
+* Juan Israel Flores - "juanmks86-debug"
+* Paola Milagros Zoe Toconas - "paola-zoe"
+* Victoria Valentina Valencia - "victoriaavalee"
+* Glenda Sofia Verdeja - "sofiver2023" 
