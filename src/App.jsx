@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AdminProvider } from './context/AdminContext';
 import Login from './views/Login.jsx';
 import ListaClientes from "./views/ListaClientes";
-import RutaProtegida from './components/layout/RutaProtegidaTest.jsx';
+import RutaProtegida from './components/layout/RutaProtegida.jsx';
 import DetalleCliente from "./views/DetalleCliente";
 import Dashboard from './views/Dashboard.jsx';
 import "./App.css";
