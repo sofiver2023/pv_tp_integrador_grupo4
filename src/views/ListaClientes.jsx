@@ -25,8 +25,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AltaClienteForm from "../components/common/AltaClienteForm";
 import Footer from "../components/layout/Footer.jsx";
 import Header from "../components/layout/Header.jsx";
+import { useAdmin } from "../context/AdminContext";
 
 function ListaClientes() {
+  const { admin } = useAdmin();
   const [clientes, setClientes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(true);
@@ -181,13 +183,15 @@ function ListaClientes() {
                     >
                       Ver ficha completa
                     </Button>
-                    <IconButton
-                      color="error"
-                      aria-label="Eliminar cliente"
-                      onClick={() => handleEliminar(cliente.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    {admin?.sector === "Gerencia" && (
+                      <IconButton
+                        color="error"
+                        aria-label="Eliminar cliente"
+                        onClick={() => handleEliminar(cliente.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
                   </CardActions>
                 </Card>
               </Grid>
