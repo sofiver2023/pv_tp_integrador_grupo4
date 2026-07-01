@@ -163,7 +163,6 @@ function ListaClientes() {
                       <Typography variant="h6">
                         {cliente.name.firstname} {cliente.name.lastname}
                       </Typography>
-                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
                     </Box>
 
                     <Typography variant="body2" color="text.secondary" gutterBottom>
