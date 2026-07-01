@@ -4,6 +4,7 @@ import Login from './views/Login.jsx';
 import ListaClientes from "./views/ListaClientes";
 import RutaProtegida from './components/layout/RutaProtegidaTest.jsx';
 import DetalleCliente from "./views/DetalleCliente";
+import Dashboard from './views/Dashboard.jsx';
 import "./App.css";
 
 const App = () => { 
@@ -29,8 +30,16 @@ const App = () => {
               </RutaProtegida>
             }
           />
-        </Routes>
 
+          <Route path="/dashboard"
+            element={
+              <RutaProtegida>
+                <Dashboard />
+              </RutaProtegida>
+            }
+          />
+
+        </Routes>
       </BrowserRouter>
     </AdminProvider>
   );
