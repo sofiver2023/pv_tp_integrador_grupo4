@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background: var(--background);
+    color: var(--text);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+main {
+    width:100%;
+    min-height:100vh;
+    min-height: calc(100vh - 140px);
+    padding:2rem;
+    background:var(--background);
+}
+
+
+a{
+    color:inherit;
+    text-decoration:none;
+}
+
+::selection{
+    background: var(--primary);
+    color: white;
+}
+
+button {
+    font-family: inherit;
+}
+
+input,
+textarea,
+select {
+    font-family: inherit;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:var(--primary);
+    border-radius:50px;
+}
+
+::-webkit-scrollbar-track{
+    background:transparent;
+}
+
+
+
+button,
+a,
+.MuiCard-root,
+.MuiButton-root,
+.MuiFab-root,
+.MuiPaper-root {
+    transition: all var(--transition);
+}
+
+.MuiCard-root {
+    border-radius: var(--radius) !important;
+    box-shadow:var(--shadow)!important;
+    transition:var(--transition)!important;
+}
+
+.MuiCard-root:hover{
+    transform:translateY(-4px);
+    box-shadow:var(--shadow-hover)!important;
+}
+
+.MuiButton-root {
+    border-radius:10px!important;
+    text-transform:none!important;
+    font-weight:600!important;
+    transition:var(--transition)!important;
+}
+
+.MuiFab-root{
+    transition:var(--transition)!important;
+}
+
+.MuiFab-root:hover{
+    transform:scale(1.05);
+}
+
+.MuiOutlinedInput-root{
+    border-radius:12px!important;
+}
+
+.MuiModal-root{
+    backdrop-filter:blur(4px);
+}
+
+.MuiSnackbar-root{
+    z-index:1500;
+}
