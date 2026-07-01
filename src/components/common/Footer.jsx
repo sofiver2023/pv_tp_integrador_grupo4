@@ -1,5 +1,5 @@
 import { Box, Typography, Grid } from "@mui/material";
-import PeopleAltIcon from "@mui/icons-material/ShoppingCart";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 
 function Footer() {
   return (
