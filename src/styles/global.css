@@ -20,6 +20,9 @@ body {
 main {
     width:100%;
     min-height:100vh;
+    min-height: calc(100vh - 140px);
+    padding:2rem;
+    background:var(--background);
 }
 
 
@@ -74,7 +77,6 @@ a,
     transition: all var(--transition);
 }
 
-.MuiPaper-root,
 .MuiCard-root {
     border-radius: var(--radius) !important;
     box-shadow:var(--shadow)!important;

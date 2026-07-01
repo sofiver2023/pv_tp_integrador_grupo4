@@ -23,7 +23,7 @@ import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AltaClienteForm from "../components/common/AltaClienteForm";
-import Footer from "../components/common/Footer.jsx";
+import Footer from "../components/layout/Footer.jsx";
 import Header from "../components/layout/Header.jsx";
 
 function ListaClientes() {
@@ -97,7 +97,6 @@ function ListaClientes() {
 
   return (
     <>
-    <Header></Header>
       <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
         <Typography variant="h4" gutterBottom>
           Gestión de Clientes
@@ -233,7 +232,6 @@ function ListaClientes() {
           </Alert>
         </Snackbar>
       </Box>
-      <Footer></Footer>
 
     </>
   );

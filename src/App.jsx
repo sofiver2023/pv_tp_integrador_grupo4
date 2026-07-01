@@ -5,6 +5,7 @@ import ListaClientes from "./views/ListaClientes";
 import RutaProtegida from './components/layout/RutaProtegida.jsx';
 import DetalleCliente from "./views/DetalleCliente";
 import Dashboard from './views/Dashboard.jsx';
+import Layout from './components/layout/Layout.jsx';
 import "./App.css";
 
 const App = () => { 
@@ -17,7 +18,9 @@ const App = () => {
           <Route path="/clientes"
             element={
               <RutaProtegida>
-                <ListaClientes />
+                <Layout>
+                  <ListaClientes />
+                </Layout>
               </RutaProtegida>
             }/>
 
@@ -26,7 +29,9 @@ const App = () => {
           <Route path="/clientes/:id"
             element={
               <RutaProtegida>
+                <Layout>
                   <DetalleCliente />
+                </Layout>
               </RutaProtegida>
             }
           />
@@ -34,7 +39,9 @@ const App = () => {
           <Route path="/dashboard"
             element={
               <RutaProtegida>
-                <Dashboard />
+                <Layout>
+                  <Dashboard />
+                </Layout>
               </RutaProtegida>
             }
           />

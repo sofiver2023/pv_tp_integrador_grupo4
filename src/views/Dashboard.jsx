@@ -8,7 +8,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import TaskIcon from '@mui/icons-material/Task';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import Header from '../components/layout/Header';
-import Footer from '../components/common/Footer';
+import Footer from '../components/layout/Footer';
 
 const actividad = [
   { usuario: 'Mauricio Villarreal', accion: 'Alta de nuevo cliente (#19)', fecha: 'Hace 10 min', estado: 'Completado' },
@@ -41,7 +41,6 @@ const metricas = [
 const Dashboard = () => {
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-      <Header />
 
       <Container maxWidth="xl" sx={{ flex: 1, py: 4 }}>
         {/* Título */}
@@ -133,7 +132,6 @@ const Dashboard = () => {
         </Grid>
       </Container>
 
-      <Footer />
     </Box>
   );
 };
