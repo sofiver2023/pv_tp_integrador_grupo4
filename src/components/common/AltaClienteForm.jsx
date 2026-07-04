@@ -69,7 +69,8 @@ function AltaClienteForm({ onClienteCreado, onCancelar }) {
   };
 
   return (
-    <Box sx={{ padding: 3, minWidth: 320 }}>
+    <Box sx={{ padding: 3, margin: "0 auto", minWidth: 320, width: "100%", width: { xs: "100%", md: 600 } }}>
+      
       <Typography variant="h6" gutterBottom>
         Alta de Cliente
       </Typography>

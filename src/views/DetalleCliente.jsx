@@ -113,7 +113,7 @@ function DetalleCliente() {
 
                     <Divider sx={{ my: 2 }} />
 
-                    <Typography variant="subtitle1" fontWeight="bold">
+                    {/* <Typography variant="subtitle1" fontWeight="bold">
                         Credenciales de Acceso
                     </Typography>
                     <Typography>
@@ -121,7 +121,7 @@ function DetalleCliente() {
                     </Typography>
                     <Typography>
                         <strong>Contraseña:</strong> {cliente.password}
-                    </Typography>
+                    </Typography>*/}
 
                     <Box sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
                         <Button variant="contained" onClick={() => navigate("/clientes")}>
