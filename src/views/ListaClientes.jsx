@@ -99,7 +99,7 @@ function ListaClientes() {
 
   return (
     <>
-      <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
+      <Box sx={{ padding: {xs:0,lg:3}, maxWidth: 1200, margin: "0 auto" }}>
         <Typography variant="h4" gutterBottom>
           Gestión de Clientes
         </Typography>
@@ -163,7 +163,6 @@ function ListaClientes() {
                       <Typography variant="h6">
                         {cliente.name.firstname} {cliente.name.lastname}
                       </Typography>
-                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
                     </Box>
 
                     <Typography variant="body2" color="text.secondary" gutterBottom>
