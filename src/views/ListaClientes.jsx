@@ -99,7 +99,7 @@ function ListaClientes() {
 
   return (
     <>
-      <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
+      <Box sx={{ padding: {xs:0,lg:3}, maxWidth: 1200, margin: "0 auto" }}>
         <Typography variant="h4" gutterBottom>
           Gestión de Clientes
         </Typography>

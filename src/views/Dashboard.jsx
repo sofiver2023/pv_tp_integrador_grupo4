@@ -40,7 +40,7 @@ const metricas = [
 
 const Dashboard = () => {
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100%' }}>
 
       <Container maxWidth="xl" sx={{ flex: 1, py: 4 }}>
         {/* Título */}

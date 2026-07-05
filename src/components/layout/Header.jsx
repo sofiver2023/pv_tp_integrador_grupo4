@@ -2,13 +2,13 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAdmin } from '../../context/AdminContext';
 import { AppBar, Toolbar, Typography, Box, Button, IconButton, Menu, MenuItem, useMediaQuery, useTheme } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu'; 
+import MenuIcon from '@mui/icons-material/Menu';
 import logo from "../../assets/logo_pv.png";
 
 const Header = () => {
     const { admin, logout } = useAdmin();
     const navigate = useNavigate();
-    
+
     const theme = useTheme();
     const esMovil = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -27,8 +27,17 @@ const Header = () => {
     if (!admin) return null;
 
     return (
-        <AppBar position="static" elevation={0} sx={{ bgcolor:"var(--primary)", borderRadius: 0 }}>
-            <Toolbar sx={{ minHeight: 72, justifyContent: 'space-between', px: 4 }}>
+        <AppBar position="sticky" elevation={0} sx={{
+            bgcolor: "var(--primary)",
+            borderRadius: {xs:0, lg: 2},
+            boxShadow: 5,
+            marginBottom: '8px'
+        }}>
+            <Toolbar sx={{
+                minHeight: 72,
+                justifyContent: 'space-between',
+                px: 4
+            }}>
                 <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
                     <Box component="img" src={logo} alt="ClientFlow" sx={{ width: 42, height: 42 }} />
                     <Box>
@@ -63,18 +72,18 @@ const Header = () => {
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
                         <Box sx={{ textAlign: "right" }}>
                             <Typography>Hola, <b>{admin.nombre}</b></Typography>
-                            <Typography variant="body2" sx={{ opacity:.8 }}>{admin.sector}</Typography>
+                            <Typography variant="body2" sx={{ opacity: .8 }}>{admin.sector}</Typography>
                         </Box>
-                        <Button 
-                            color="inherit" 
-                            variant="outlined" 
+                        <Button
+                            color="inherit"
+                            variant="outlined"
                             onClick={handleLogout}
                             sx={{
-                                color:"white",
-                                borderColor:"rgba(255,255,255,.5)",
-                                "&:hover":{
-                                    borderColor:"white",
-                                    bgcolor:"rgba(255,255,255,.08)"
+                                color: "white",
+                                borderColor: "rgba(255,255,255,.5)",
+                                "&:hover": {
+                                    borderColor: "white",
+                                    bgcolor: "rgba(255,255,255,.08)"
                                 }
                             }}
                         >

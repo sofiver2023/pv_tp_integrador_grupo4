@@ -65,11 +65,11 @@ function Footer() {
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
             INTEGRANTES
           </Typography>
-          <Typography variant="body2" color="grey.400">Jonatan Rolando Garcia Acha</Typography>
           <Typography variant="body2" color="grey.400">Juan Israel Flores</Typography>
-          <Typography variant="body2" color="grey.400">Paola Milagros Zoe Toconas</Typography>
-          <Typography variant="body2" color="grey.400">Victoria Valentina Valencia</Typography>
           <Typography variant="body2" color="grey.400">Glenda Sofia Verdeja</Typography>
+          <Typography variant="body2" color="grey.400">Victoria Valentina Valencia</Typography>
+          <Typography variant="body2" color="grey.400">Paola Milagros Zoe Toconas</Typography>
+          <Typography variant="body2" color="grey.400">Jonatan Rolando Garcia Acha</Typography>
         </Grid>
       </Grid>
 
