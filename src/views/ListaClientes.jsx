@@ -125,6 +125,7 @@ function ListaClientes() {
                     display: "flex",
                     flexDirection: "column",
                     transition: "transform 0.2s, box-shadow 0.2s",
+                    backgroundColor: "#1e3a5f",
                     "&:hover": {
                       transform: "translateY(-6px)",
                       boxShadow: 8,
@@ -133,21 +134,21 @@ function ListaClientes() {
                 >
                   <CardContent sx={{ textAlign: "center", flexGrow: 1 }}>
                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 2 }}>
-                      <Avatar sx={{ marginBottom: 1, bgcolor: "primary.main", width: 56, height: 56 }}>
+                      <Avatar sx={{ marginBottom: 1, bgcolor: "#ffffff", color: "#1e3a5f", width: 56, height: 56 }}>
                         <PersonIcon fontSize="large" />
                       </Avatar>
-                      <Typography variant="h6">
+                      <Typography variant="h6" sx={{ color: "white", fontWeight: "bold" }}>
                         {cliente.name.firstname} {cliente.name.lastname}
                       </Typography>
-                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" sx={{ mt: 0.5 }} />
+                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" sx={{ mt: 0.5, color: "white", borderColor: "white" }} />
                     </Box>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography variant="body2" sx={{ color: "white" }} gutterBottom>
                       📧 {cliente.email}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                    <Typography variant="body2" sx={{ color: "white" }} gutterBottom>
                       📞 {cliente.phone}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
+                    <Typography variant="body2" sx={{ color: "white" }}>
                       📍 {cliente.address.city}
                     </Typography>
                   </CardContent>
@@ -156,12 +157,13 @@ function ListaClientes() {
                     <Button
                       variant="contained"
                       startIcon={<VisibilityIcon />}
+                      sx={{ bgcolor: "#ffffff", color: "#1e3a5f", "&:hover": { bgcolor: "#e0e0e0" } }}
                       onClick={() => navigate(`/clientes/${cliente.id}`)}
                     >
                       Ver Perfil
                     </Button>
                     <IconButton
-                      color="error"
+                      sx={{ color: "white" }}
                       aria-label="Eliminar cliente"
                       onClick={() => handleEliminar(cliente.id)}
                     >
