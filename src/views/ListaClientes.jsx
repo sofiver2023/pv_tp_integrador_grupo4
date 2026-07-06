@@ -20,8 +20,8 @@ import {
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import AltaClienteForm from "../components/common/AltaClienteForm";
 import Footer from "../components/layout/Footer.jsx";
 import Header from "../components/layout/Header.jsx";
@@ -41,11 +41,7 @@ function ListaClientes() {
         setCargando(true);
         setError(null);
         const respuesta = await fetch("https://fakestoreapi.com/users");
-
-        if (!respuesta.ok) {
-          throw new Error("No se pudo obtener la lista de clientes");
-        }
-
+        if (!respuesta.ok) throw new Error("No se pudo obtener la lista de clientes");
         const datos = await respuesta.json();
         setClientes(datos);
       } catch (err) {
@@ -54,7 +50,6 @@ function ListaClientes() {
         setCargando(false);
       }
     };
-
     obtenerClientes();
   }, []);
 
@@ -62,10 +57,7 @@ function ListaClientes() {
     const textoBusqueda = busqueda.toLowerCase();
     const apellido = cliente.name.lastname.toLowerCase();
     const ciudad = cliente.address.city.toLowerCase();
-
-    return (
-      apellido.includes(textoBusqueda) || ciudad.includes(textoBusqueda)
-    );
+    return apellido.includes(textoBusqueda) || ciudad.includes(textoBusqueda);
   });
 
   const handleClienteCreado = (nuevoCliente) => {
@@ -77,20 +69,12 @@ function ListaClientes() {
   const handleEliminar = async (id) => {
     const confirmar = window.confirm("¿Seguro que querés eliminar este cliente?");
     if (!confirmar) return;
-
     try {
-      const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, {
-        method: "DELETE",
-      });
-
-      if (!respuesta.ok) {
-        throw new Error("No se pudo eliminar el cliente");
-      }
-
+      const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, { method: "DELETE" });
+      if (!respuesta.ok) throw new Error("No se pudo eliminar el cliente");
       setClientes((prev) => prev.filter((c) => c.id !== id));
       setMensajeExito("Cliente eliminado correctamente");
     } catch (err) {
-      console.error("Error al eliminar cliente:", err);
       setError("No se pudo eliminar el cliente");
     }
   };
@@ -127,9 +111,7 @@ function ListaClientes() {
         )}
 
         {error && !cargando && (
-          <Alert severity="error" sx={{ marginBottom: 2 }}>
-            {error}
-          </Alert>
+          <Alert severity="error" sx={{ marginBottom: 2 }}>{error}</Alert>
         )}
 
         {!cargando && !error && (
@@ -142,28 +124,23 @@ function ListaClientes() {
                     height: "100%",
                     display: "flex",
                     flexDirection: "column",
-                    transition: "transform 0.2s",
-                    "&:hover": { transform: "translateY(-4px)" },
+                    transition: "transform 0.2s, box-shadow 0.2s",
+                    "&:hover": {
+                      transform: "translateY(-6px)",
+                      boxShadow: 8,
+                    },
                   }}
                 >
                   <CardContent sx={{ textAlign: "center", flexGrow: 1 }}>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                        marginBottom: 2,
-                      }}
-                    >
-                      <Avatar sx={{ marginBottom: 1, bgcolor: "primary.main" }}>
-                        <PersonIcon />
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 2 }}>
+                      <Avatar sx={{ marginBottom: 1, bgcolor: "primary.main", width: 56, height: 56 }}>
+                        <PersonIcon fontSize="large" />
                       </Avatar>
                       <Typography variant="h6">
                         {cliente.name.firstname} {cliente.name.lastname}
                       </Typography>
-                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
+                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" sx={{ mt: 0.5 }} />
                     </Box>
-
                     <Typography variant="body2" color="text.secondary" gutterBottom>
                       📧 {cliente.email}
                     </Typography>
@@ -175,11 +152,13 @@ function ListaClientes() {
                     </Typography>
                   </CardContent>
 
-                  <CardActions sx={{ justifyContent: "center", paddingBottom: 2 }}>
-                    <Button variant="outlined"
+                  <CardActions sx={{ justifyContent: "center", paddingBottom: 2, gap: 1 }}>
+                    <Button
+                      variant="contained"
+                      startIcon={<VisibilityIcon />}
                       onClick={() => navigate(`/clientes/${cliente.id}`)}
                     >
-                      Ver ficha completa
+                      Ver Perfil
                     </Button>
                     <IconButton
                       color="error"
@@ -197,24 +176,20 @@ function ListaClientes() {
 
         {clientesFiltrados.length === 0 && !cargando && !error && (
           <Box sx={{ textAlign: "center", padding: 4 }}>
-            <Alert severity="info">
-              No se encontraron clientes con ese criterio de búsqueda.
-            </Alert>
+            <Alert severity="info">No se encontraron clientes con ese criterio de búsqueda.</Alert>
           </Box>
         )}
 
         <Modal open={modalAbierto} onClose={() => setModalAbierto(false)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              bgcolor: "background.paper",
-              borderRadius: 2,
-              boxShadow: 24,
-            }}
-          >
+          <Box sx={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 24,
+          }}>
             <AltaClienteForm
               onClienteCreado={handleClienteCreado}
               onCancelar={() => setModalAbierto(false)}
@@ -222,17 +197,12 @@ function ListaClientes() {
           </Box>
         </Modal>
 
-        <Snackbar
-          open={!!mensajeExito}
-          autoHideDuration={3000}
-          onClose={() => setMensajeExito("")}
-        >
+        <Snackbar open={!!mensajeExito} autoHideDuration={3000} onClose={() => setMensajeExito("")}>
           <Alert severity="success" onClose={() => setMensajeExito("")}>
             {mensajeExito}
           </Alert>
         </Snackbar>
       </Box>
-
     </>
   );
 }
