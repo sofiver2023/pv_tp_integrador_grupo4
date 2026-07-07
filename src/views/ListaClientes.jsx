@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Grid,
   Card,
@@ -15,22 +16,26 @@ import {
   Modal,
   Snackbar,
   IconButton,
+  Button,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AltaClienteForm from "../components/common/AltaClienteForm";
-import EditarClienteForm from "../components/common/EditarClienteForm";
+import Footer from "../components/layout/Footer.jsx";
+import Header from "../components/layout/Header.jsx";
+import { useAdmin } from "../context/AdminContext";
 
 function ListaClientes() {
+  const { admin } = useAdmin();
   const [clientes, setClientes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
   const [modalAbierto, setModalAbierto] = useState(false);
-  const [clienteEditando, setClienteEditando] = useState(null);
   const [mensajeExito, setMensajeExito] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const obtenerClientes = async () => {
@@ -71,14 +76,6 @@ function ListaClientes() {
     setMensajeExito("Cliente creado correctamente");
   };
 
-  const handleClienteEditado = (clienteActualizado) => {
-    setClientes((prev) =>
-      prev.map((c) => (c.id === clienteActualizado.id ? clienteActualizado : c))
-    );
-    setClienteEditando(null);
-    setMensajeExito("Cliente actualizado correctamente");
-  };
-
   const handleEliminar = async (id) => {
     const confirmar = window.confirm("¿Seguro que querés eliminar este cliente?");
     if (!confirmar) return;
@@ -101,165 +98,147 @@ function ListaClientes() {
   };
 
   return (
-    <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
-      <Typography variant="h4" gutterBottom>
-        Gestión de Clientes
-      </Typography>
+    <>
+      <Box sx={{ padding: 3, maxWidth: 1200, margin: "0 auto" }}>
+        <Typography variant="h4" gutterBottom>
+          Gestión de Clientes
+        </Typography>
 
-      <Box sx={{ display: "flex", gap: 2, marginBottom: 3 }}>
-        <TextField
-          label="Buscar por apellido o ciudad"
-          variant="outlined"
-          fullWidth
-          value={busqueda}
-          onChange={(e) => setBusqueda(e.target.value)}
-        />
-        <Fab
-          color="primary"
-          aria-label="Agregar cliente"
-          onClick={() => setModalAbierto(true)}
-          sx={{ flexShrink: 0 }}
-        >
-          <PersonAddIcon />
-        </Fab>
-      </Box>
-
-      {cargando && (
-        <Box sx={{ display: "flex", justifyContent: "center", padding: 4 }}>
-          <CircularProgress />
+        <Box sx={{ display: "flex", gap: 2, marginBottom: 3 }}>
+          <TextField
+            label="Buscar por apellido o ciudad"
+            variant="outlined"
+            fullWidth
+            value={busqueda}
+            onChange={(e) => setBusqueda(e.target.value)}
+          />
+          <Fab
+            color="primary"
+            aria-label="Agregar cliente"
+            onClick={() => setModalAbierto(true)}
+            sx={{ flexShrink: 0 }}
+          >
+            <PersonAddIcon />
+          </Fab>
         </Box>
-      )}
 
-      {error && !cargando && (
-        <Alert severity="error" sx={{ marginBottom: 2 }}>
-          {error}
-        </Alert>
-      )}
+        {cargando && (
+          <Box sx={{ display: "flex", justifyContent: "center", padding: 4 }}>
+            <CircularProgress />
+          </Box>
+        )}
 
-      {!cargando && !error && (
-        <Grid container spacing={3} justifyContent="center">
-          {clientesFiltrados.map((cliente) => (
-            <Grid item xs={12} sm={6} md={4} key={cliente.id}>
-              <Card
-                elevation={3}
-                sx={{
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  transition: "transform 0.2s",
-                  "&:hover": { transform: "translateY(-4px)" },
-                }}
-              >
-                <CardContent sx={{ textAlign: "center", flexGrow: 1 }}>
-                  <Box
+        {error && !cargando && (
+          <Alert severity="error" sx={{ marginBottom: 2 }}>
+            {error}
+          </Alert>
+        )}
+
+        {!cargando && !error && (
+          <Box sx={{ margin: "0 auto", width: "85%", }}>
+            <Grid container spacing={3} justifyContent="flex-start">
+              {clientesFiltrados.map((cliente) => (
+                <Grid item xs={12} sm={6} md={4} key={cliente.id}>
+                  <Card
+                    elevation={3}
                     sx={{
+                      height: "100%",
                       display: "flex",
                       flexDirection: "column",
-                      alignItems: "center",
-                      marginBottom: 2,
+                      transition: "transform 0.2s",
+                      "&:hover": { transform: "translateY(-4px)" },
                     }}
                   >
-                    <Avatar sx={{ marginBottom: 1, bgcolor: "primary.main" }}>
-                      <PersonIcon />
-                    </Avatar>
-                    <Typography variant="h6">
-                      {cliente.name.firstname} {cliente.name.lastname}
-                    </Typography>
-                    <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" />
-                  </Box>
+                    <CardContent sx={{ textAlign: "center", flexGrow: 1 }}>
+                      <Box
+                        sx={{
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          marginBottom: 2,
+                        }}
+                      >
+                        <Avatar sx={{ marginBottom: 1, bgcolor: "primary.main" }}>
+                          <PersonIcon />
+                        </Avatar>
+                        <Typography variant="h6">
+                          {cliente.name.firstname} {cliente.name.lastname}
+                        </Typography>
+                      </Box>
 
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    📧 {cliente.email}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" gutterBottom>
-                    📞 {cliente.phone}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    📍 {cliente.address.city}
-                  </Typography>
-                </CardContent>
+                      <Typography variant="body2" color="text.secondary" gutterBottom>
+                        📧 {cliente.email}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary" gutterBottom>
+                        📞 {cliente.phone}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        📍 {cliente.address.city}
+                      </Typography>
+                    </CardContent>
 
-                <CardActions sx={{ justifyContent: "center", paddingBottom: 2 }}>
-                  <IconButton
-                    color="warning"
-                    aria-label="Editar cliente"
-                    onClick={() => setClienteEditando(cliente)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    color="error"
-                    aria-label="Eliminar cliente"
-                    onClick={() => handleEliminar(cliente.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </CardActions>
-              </Card>
+                    <CardActions sx={{ justifyContent: "center", paddingBottom: 2 }}>
+                      <Button variant="outlined"
+                        onClick={() => navigate(`/clientes/${cliente.id}`)}
+                      >
+                        Ver ficha completa
+                      </Button>
+                      {admin?.sector === "Gerencia" && (
+                        <IconButton
+                          color="error"
+                          aria-label="Eliminar cliente"
+                          onClick={() => handleEliminar(cliente.id)}
+                        >
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    </CardActions>
+                  </Card>
+                </Grid>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-      )}
+          </Box>
+        )}
 
-      {clientesFiltrados.length === 0 && !cargando && !error && (
-        <Box sx={{ textAlign: "center", padding: 4 }}>
-          <Alert severity="info">
-            No se encontraron clientes con ese criterio de búsqueda.
-          </Alert>
-        </Box>
-      )}
+        {clientesFiltrados.length === 0 && !cargando && !error && (
+          <Box sx={{ textAlign: "center", padding: 4 }}>
+            <Alert severity="info">
+              No se encontraron clientes con ese criterio de búsqueda.
+            </Alert>
+          </Box>
+        )}
 
-      <Modal open={modalAbierto} onClose={() => setModalAbierto(false)}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            borderRadius: 2,
-            boxShadow: 24,
-          }}
-        >
-          <AltaClienteForm
-            onClienteCreado={handleClienteCreado}
-            onCancelar={() => setModalAbierto(false)}
-          />
-        </Box>
-      </Modal>
-
-      <Modal open={!!clienteEditando} onClose={() => setClienteEditando(null)}>
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            bgcolor: "background.paper",
-            borderRadius: 2,
-            boxShadow: 24,
-          }}
-        >
-          {clienteEditando && (
-            <EditarClienteForm
-              cliente={clienteEditando}
-              onClienteEditado={handleClienteEditado}
-              onCancelar={() => setClienteEditando(null)}
+        <Modal open={modalAbierto} onClose={() => setModalAbierto(false)}>
+          <Box
+            sx={{
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              bgcolor: "background.paper",
+              borderRadius: 2,
+              boxShadow: 24,
+            }}
+          >
+            <AltaClienteForm
+              onClienteCreado={handleClienteCreado}
+              onCancelar={() => setModalAbierto(false)}
             />
-          )}
-        </Box>
-      </Modal>
+          </Box>
+        </Modal>
 
-      <Snackbar
-        open={!!mensajeExito}
-        autoHideDuration={3000}
-        onClose={() => setMensajeExito("")}
-      >
-        <Alert severity="success" onClose={() => setMensajeExito("")}>
-          {mensajeExito}
-        </Alert>
-      </Snackbar>
-    </Box>
+        <Snackbar
+          open={!!mensajeExito}
+          autoHideDuration={3000}
+          onClose={() => setMensajeExito("")}
+        >
+          <Alert severity="success" onClose={() => setMensajeExito("")}>
+            {mensajeExito}
+          </Alert>
+        </Snackbar>
+      </Box>
+
+    </>
   );
 }
 
