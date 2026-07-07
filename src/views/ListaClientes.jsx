@@ -100,7 +100,13 @@ function ListaClientes() {
             color="primary"
             aria-label="Agregar cliente"
             onClick={() => setModalAbierto(true)}
-            sx={{ flexShrink: 0 }}
+            sx={{ flexShrink: 0,
+              bgcolor: "var(--primary)",
+              color: "white",
+              "&:hover": {
+              bgcolor: "var(--primary-hover)"
+              }
+            }}
           >
             <PersonAddIcon />
           </Fab>
@@ -127,7 +133,7 @@ function ListaClientes() {
                     display: "flex",
                     flexDirection: "column",
                     transition: "transform 0.2s, box-shadow 0.2s",
-                    backgroundColor: "#1e3a5f",
+                    backgroundColor: "var(--primary)",
                     "&:hover": {
                       transform: "translateY(-6px)",
                       boxShadow: 8,
@@ -136,21 +142,29 @@ function ListaClientes() {
                 >
                   <CardContent sx={{ textAlign: "center", flexGrow: 1 }}>
                     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 2 }}>
-                      <Avatar sx={{ marginBottom: 1, bgcolor: "#ffffff", color: "#1e3a5f", width: 56, height: 56 }}>
-                        <PersonIcon fontSize="large" />
+                      <Avatar
+                        sx={{
+                            bgcolor: "var(--surface)",
+                            color: "var(--primary)",
+                            width: 56,
+                            height: 56,
+                            fontWeight: 700
+                        }}
+                      >
+                        {cliente.name.firstname[0].toUpperCase()}
+                        {cliente.name.lastname[0].toUpperCase()}
                       </Avatar>
-                      <Typography variant="h6" sx={{ color: "white", fontWeight: "bold" }}>
+                      <Typography variant="h6" sx={{ color: "var(--surface)", fontWeight: "bold" }}>
                         {cliente.name.firstname} {cliente.name.lastname}
                       </Typography>
-                      <Chip label={`ID: ${cliente.id}`} size="small" variant="outlined" sx={{ mt: 0.5, color: "white", borderColor: "white" }} />
                     </Box>
-                    <Typography variant="body2" sx={{ color: "white" }} gutterBottom>
+                    <Typography variant="body2" sx={{ color: "var(--surface)" }} gutterBottom>
                       📧 {cliente.email}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "white" }} gutterBottom>
+                    <Typography variant="body2" sx={{ color: "var(--surface)" }} gutterBottom>
                       📞 {cliente.phone}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "white" }}>
+                    <Typography variant="body2" sx={{ color: "var(--surface)" }}>
                       📍 {cliente.address.city}
                     </Typography>
                   </CardContent>
@@ -159,13 +173,13 @@ function ListaClientes() {
                     <Button
                       variant="contained"
                       startIcon={<VisibilityIcon />}
-                      sx={{ bgcolor: "#ffffff", color: "#1e3a5f", "&:hover": { bgcolor: "#e0e0e0" } }}
+                      sx={{ bgcolor: "background.paper", color: "var(--primary)", "&:hover": { bgcolor: "#e0e0e0" } }}
                       onClick={() => navigate(`/clientes/${cliente.id}`)}
                     >
                       Ver Perfil
                     </Button>
                     <IconButton
-                      sx={{ color: "white" }}
+                      sx={{ color: "var(--surface)" }}
                       aria-label="Eliminar cliente"
                       onClick={() => handleEliminar(cliente.id)}
                     >

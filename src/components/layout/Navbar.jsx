@@ -62,9 +62,10 @@ function Navbar() {
                             gap: { xs: 0, lg: 2 },
                             px: { xs: 1, lg: 2 },
                             "&.active": {
-                                color: ("--var-primary"),
+                                color: ("var(--primary)"),
                                 fontWeight: 700,
-                                bgcolor: "#DCE4F7"
+                                bgcolor: "#DCE4F7",
+                                borderLeft:"4px solid var(--primary)"
                             },
                         }}
                     >
