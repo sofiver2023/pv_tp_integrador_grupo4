@@ -91,16 +91,29 @@ function Footer() {
             </IconButton>
           </Box>
         </Grid>
+
+        <Grid item xs={12} md={4}>
+          <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
+            REDES SOCIALES
+          </Typography>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <IconButton color="inherit" href="https://facebook.com" target="_blank">
+              <FacebookIcon />
+            </IconButton>
+            <IconButton color="inherit" href="https://instagram.com" target="_blank">
+              <InstagramIcon />
+            </IconButton>
+            <IconButton color="inherit" href="https://linkedin.com" target="_blank">
+              <LinkedInIcon />
+            </IconButton>
+            <IconButton color="inherit" href="https://github.com/sofiver2023/pv_tp_integrador_grupo4" target="_blank">
+              <GitHubIcon />
+            </IconButton>
+          </Box>
+        </Grid>
       </Grid>
 
-      <Box
-        sx={{
-          borderTop: "1px solid grey",
-          marginTop: 3,
-          paddingTop: 2,
-          textAlign: "center",
-        }}
-      >
+      <Box sx={{ borderTop: "1px solid grey", marginTop: 3, paddingTop: 2, textAlign: "center" }}>
         <Typography variant="body2" color="grey.400">
           © 2026 Proyecto Final APU - Comisión 3 Grupo 4. Todos los derechos reservados.
         </Typography>
