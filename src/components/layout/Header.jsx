@@ -28,10 +28,11 @@ const Header = () => {
 
     return (
         <AppBar position="sticky" elevation={0} sx={{
+            mt: { xs: 0, lg: 2 },
+            mb: '8px',
             bgcolor: "var(--primary)",
-            borderRadius: {xs:0, lg: 2},
+            borderRadius: { xs: 0, lg: 2 },
             boxShadow: 5,
-            marginBottom: '8px'
         }}>
             <Toolbar sx={{
                 minHeight: 72,
