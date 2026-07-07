@@ -1,5 +1,19 @@
 import { useState } from "react";
-import { TextField, Button, Box, Typography, Stack } from "@mui/material";
+import { TextField, Button, Box, Typography, Stack, MenuItem } from "@mui/material";
+
+const CIUDADES_OPCIONES = [
+  { value: "San Salvador de Jujuy", label: "San Salvador de Jujuy" },
+  { value: "Palpalá", label: "Palpalá" },
+  { value: "El Carmen", label: "El Carmen" },
+  { value: "Perico", label: "Perico" },
+  { value: "Monterrico", label: "Monterrico" },
+  { value: "Humahuaca", label: "Humahuaca" },
+  { value: "Tilcara", label: "Tilcara" },
+  { value: "San Pedro de Jujuy", label: "San Pedro de Jujuy" },
+  { value: "Libertador General San Martín", label: "Libertador Gral. San Martín" },
+  { value: "La Quiaca", label: "La Quiaca" },
+  { value: "Abra Pampa", label: "Abra Pampa" },
+];
 
 function AltaClienteForm({ onClienteCreado, onCancelar }) {
   const [nombre, setNombre] = useState("");
@@ -55,7 +69,7 @@ function AltaClienteForm({ onClienteCreado, onCancelar }) {
   };
 
   return (
-    <Box sx={{ padding: 3, minWidth: 320 }}>
+     <Box sx={{ padding: 3, margin: "0 auto", minWidth: 320, width: "100%", width: { xs: "100%", md: 600 } }}>
       <Typography variant="h6" gutterBottom>
         Alta de Cliente
       </Typography>
@@ -84,12 +98,19 @@ function AltaClienteForm({ onClienteCreado, onCancelar }) {
             fullWidth
           />
           <TextField
+            select
             label="Ciudad"
             value={ciudad}
             onChange={(e) => setCiudad(e.target.value)}
             required
             fullWidth
-          />
+          >
+            {CIUDADES_OPCIONES.map((opcion) => (
+              <MenuItem key={opcion.value} value={opcion.value}>
+                {opcion.label}
+              </MenuItem>
+            ))}
+          </TextField>
           <TextField
             label="Teléfono"
             value={telefono}

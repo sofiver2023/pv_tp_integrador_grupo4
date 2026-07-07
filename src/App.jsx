@@ -7,6 +7,9 @@ import DetalleCliente from "./views/DetalleCliente";
 import Dashboard from './views/Dashboard.jsx';
 import Layout from './components/layout/Layout.jsx';
 import "./App.css";
+import Ayuda from './views/Ayuda.jsx';
+import Reportes from './views/Reportes.jsx';
+import Tareas from './views/Tareas.jsx';
 
 const App = () => { 
   return (
@@ -41,6 +44,34 @@ const App = () => {
               <RutaProtegida>
                 <Layout>
                   <Dashboard />
+                </Layout>
+              </RutaProtegida>
+            }
+          />
+
+          <Route path="/tareas"
+            element={
+              <RutaProtegida>
+                <Layout>
+                  <Tareas />
+                </Layout>
+              </RutaProtegida>
+            }
+          />
+          <Route path="/reportes"
+            element={
+              <RutaProtegida>
+                <Layout>
+                  <Reportes />
+                </Layout>
+              </RutaProtegida>
+            }
+          />
+          <Route path="/ayuda"
+            element={
+              <RutaProtegida>
+                <Layout>
+                  <Ayuda />
                 </Layout>
               </RutaProtegida>
             }

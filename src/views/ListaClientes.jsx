@@ -25,8 +25,10 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import AltaClienteForm from "../components/common/AltaClienteForm";
 import Footer from "../components/layout/Footer.jsx";
 import Header from "../components/layout/Header.jsx";
+import { useAdmin } from "../context/AdminContext";
 
 function ListaClientes() {
+  const { admin } = useAdmin();
   const [clientes, setClientes] = useState([]);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(true);
