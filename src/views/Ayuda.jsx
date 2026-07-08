@@ -5,6 +5,9 @@ import AyudaPreguntas from '../assets/AyudaPreguntas.png';
 import AyudaGuia from '../assets/AyudaGuia.png';
 import AyudaSoporte from '../assets/AyudaSoporte.png';
 
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+
 import {
     Grid, Card, CardContent, CardActions, Typography, TextField,
     Box, Chip, Fab, Modal, Snackbar, IconButton, Button, Table, 
@@ -12,9 +15,8 @@ import {
 } from '@mui/material';
 
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import SearchIcon from "@mui/icons-material/Search";
 
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
 
 const Ayuda = () => {
     const { admin } = useAdmin();
@@ -29,11 +31,18 @@ const Ayuda = () => {
                     </Typography>
                 </Box>
 
-                <Box sx={{ display: "flex", gap: 2, marginBottom: 4 }}>
+                <Box sx={{ display: "flex", gap: 2, marginBottom: 3 }}>
                     <TextField
-                        label="Buscar en la base de conocimiento"
+                        label="Buscar en la base de conocimientos"
                         variant="outlined"
                         fullWidth
+                        slotProps={{
+                        input: {
+                            startAdornment: (
+                                <SearchIcon sx={{ color: "var(--primary)" }} />
+                            ),
+                        },
+                        }}
                     />
                 </Box>
 
