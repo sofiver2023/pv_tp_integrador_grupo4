@@ -18,7 +18,7 @@ function Footer() {
       }}
     >
       <Grid container spacing={4}>
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Box sx={{ display: "flex", alignItems: "center", gap: 1, marginBottom: 1 }}>
             <PeopleAltIcon />
             <Typography variant="h6">Gestión de Clientes</Typography>
@@ -34,7 +34,7 @@ function Footer() {
           </Typography>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
             INTEGRANTES
           </Typography>
@@ -45,9 +45,9 @@ function Footer() {
           <Typography variant="body2" color="grey.400">Jonatan Rolando Garcia Acha</Typography>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-            SEGUINOS
+            REDES SOCIALES
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
             <IconButton
@@ -90,24 +90,14 @@ function Footer() {
             >
               <LinkedInIcon />
             </IconButton>
-          </Box>
-        </Grid>
-
-        <Grid item xs={12} md={4}>
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold", marginBottom: 1 }}>
-            REDES SOCIALES
-          </Typography>
-          <Box sx={{ display: "flex", gap: 1 }}>
-            <IconButton color="inherit" href="https://facebook.com" target="_blank">
-              <FacebookIcon />
-            </IconButton>
-            <IconButton color="inherit" href="https://instagram.com" target="_blank">
-              <InstagramIcon />
-            </IconButton>
-            <IconButton color="inherit" href="https://linkedin.com" target="_blank">
-              <LinkedInIcon />
-            </IconButton>
-            <IconButton color="inherit" href="https://github.com/sofiver2023/pv_tp_integrador_grupo4" target="_blank">
+            <IconButton
+              component="a"
+              href="https://github.com/sofiver2023/pv_tp_integrador_grupo4"
+              target="_blank"
+              rel="noopener noreferrer"
+              sx={{ color: "grey.400", "&:hover": { color: "white" } }}
+              aria-label="GitHub"
+            >
               <GitHubIcon />
             </IconButton>
           </Box>

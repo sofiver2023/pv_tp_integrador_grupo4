@@ -1,44 +1,80 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../context/AdminContext';
-import { Box, Typography, TextField, MenuItem, Button, Alert, Container, Card, CardContent} from '@mui/material';
-
+import { Box, Typography, TextField, MenuItem, Button } from '@mui/material';
+import logo from '../assets/logo_pv.png';
+import Footer from '../components/layout/Footer.jsx';
 
 const Login = () => {
     const [nombre, setNombre] = useState('');
     const [sector, setSector] = useState('');
-
     const [tocado, setTocado] = useState({
         nombre: false,
         sector: false
-    });    
-
+    });
     const { login } = useAdmin();
     const navigate = useNavigate();
-
     const botonDeshabilitado = nombre.trim() === '' || sector === '';
-
     const handleSubmit = (e) => {
         e.preventDefault();
-
         login(nombre, sector);
         navigate('/clientes');
-        
     };
-
     return (
-            <Box sx={{ 
-            minHeight: '100vh', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center', 
-            bgcolor: '#f4f6f8'
+        <Box sx={{
+            minHeight: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
         }}>
-            <Container maxWidth="xs">
-                <Card sx={{ boxShadow: 3, borderRadius: 2 }}>
-                    <CardContent sx={{ p: 4 }}>
-                        <Typography variant="h5" gutterBottom textAlign="center" sx={{ fontWeight: 'bold', mb: 3 , textAlign:'center'}}>
+            <Box sx={{
+                flex: 1,
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+            }}>
+                <Box sx={{
+                    flex: 1,
+                    bgcolor: 'var(--primary)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    gap: 2,
+                    py: { xs: 4, md: 0 },
+                    minHeight: { xs: 200, md: 'auto' },
+                }}>
+                    <Box sx={{
+                        width: 72,
+                        height: 72,
+                        borderRadius: 3,
+                        bgcolor: 'white',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                        <Box component="img" src={logo} alt="Nexar" sx={{ width: 48, height: 48 }} />
+                    </Box>
+                    <Typography variant="h5" sx={{ fontWeight: 700, color: 'white' }}>
+                        Nexar CRM
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'white', opacity: .85, textAlign: 'center', maxWidth: 260 }}>
+                        Gestiona tus clientes en un solo lugar
+                    </Typography>
+                </Box>
+
+                <Box sx={{
+                    flex: 1,
+                    bgcolor: '#f4f6f8',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    p: 3,
+                }}>
+                    <Box sx={{ width: '100%', maxWidth: 360 }}>
+                        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 0.5 }}>
                             ¡Bienvenido!
+                        </Typography>
+                        <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>
+                            Ingresa tus datos para continuar
                         </Typography>
                         <form onSubmit={handleSubmit}>
                             <Box sx={{ mb: 2 }}>
@@ -67,9 +103,9 @@ const Login = () => {
                                     <MenuItem value="Gerencia">Gerencia</MenuItem>
                                 </TextField>
                             </Box>
-                            <Button 
-                                type="submit" 
-                                variant="contained" 
+                            <Button
+                                type="submit"
+                                variant="contained"
                                 fullWidth
                                 size="large"
                                 disabled={botonDeshabilitado}
@@ -77,11 +113,12 @@ const Login = () => {
                                 Ingresar
                             </Button>
                         </form>
-                    </CardContent>
-                </Card>
-            </Container>
+                    </Box>
+                </Box>
+            </Box>
+
+            <Footer />
         </Box>
     );
 };
-
 export default Login;
