@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAdmin } from '../context/AdminContext';
 import { Box, Typography, TextField, MenuItem, Button } from '@mui/material';
 import logo from '../assets/logo_pv.png';
-import Footer from '../components/layout/Footer.jsx';
+
 
 const Login = () => {
     const [nombre, setNombre] = useState('');
@@ -46,7 +46,6 @@ const Login = () => {
                         width: 72,
                         height: 72,
                         borderRadius: 3,
-                        bgcolor: 'white',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
@@ -116,8 +115,6 @@ const Login = () => {
                     </Box>
                 </Box>
             </Box>
-
-            <Footer />
         </Box>
     );
 };
