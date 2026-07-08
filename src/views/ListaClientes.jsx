@@ -17,11 +17,13 @@ import {
   Snackbar,
   IconButton,
   Button,
+  InputAdornment,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import SearchIcon from "@mui/icons-material/Search";
 import AltaClienteForm from "../components/common/AltaClienteForm";
 import Footer from "../components/layout/Footer.jsx";
 import Header from "../components/layout/Header.jsx";
@@ -35,6 +37,7 @@ function ListaClientes() {
   const [error, setError] = useState(null);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [mensajeExito, setMensajeExito] = useState("");
+  const [eliminandoId, setEliminandoId] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -71,6 +74,7 @@ function ListaClientes() {
   const handleEliminar = async (id) => {
     const confirmar = window.confirm("¿Seguro que querés eliminar este cliente?");
     if (!confirmar) return;
+    setEliminandoId(id);
     try {
       const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, { method: "DELETE" });
       if (!respuesta.ok) throw new Error("No se pudo eliminar el cliente");
@@ -78,6 +82,8 @@ function ListaClientes() {
       setMensajeExito("Cliente eliminado correctamente");
     } catch (err) {
       setError("No se pudo eliminar el cliente");
+    } finally {
+      setEliminandoId(null);
     }
   };
 
@@ -95,6 +101,15 @@ function ListaClientes() {
             fullWidth
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon sx={{ color: "var(--primary)" }} />
+                  </InputAdornment>
+                ),
+              },
+            }}
           />
           <Fab
             color="primary"
@@ -202,8 +217,13 @@ function ListaClientes() {
                         sx={{ color: "var(--surface)" }}
                         aria-label="Eliminar cliente"
                         onClick={() => handleEliminar(cliente.id)}
+                        disabled={eliminandoId === cliente.id}
                       >
-                        <DeleteIcon />
+                        {eliminandoId === cliente.id ? (
+                          <CircularProgress size={20} sx={{ color: "var(--surface)" }} />
+                        ) : (
+                          <DeleteIcon />
+                        )}
                       </IconButton>
                     )}
                   </CardActions>
