@@ -38,6 +38,16 @@ function DetalleCliente() {
         const obtenerCliente = async () => {
             try {
                 setCargando(true);
+                const clientesLocales =
+                JSON.parse(localStorage.getItem("clientesLocales")) || [];
+                const clienteLocal = clientesLocales.find(
+                    c => String(c.id) === String(id)
+                );
+                if (clienteLocal) {
+                    setCliente(clienteLocal);
+                    setCargando(false);
+                    return;
+                }
                 const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`);
                 if (!respuesta.ok) {
                     throw new Error("No se pudo obtener el cliente");
@@ -54,7 +64,19 @@ function DetalleCliente() {
     }, [id]);
 
     const handleEliminar = async () => {
+        const clientesLocales = JSON.parse(localStorage.getItem("clientesLocales")) || [];
+    const esLocal = clientesLocales.some(c => String(c.id) === String(id));
         try {
+            if (esLocal) {
+            const nuevosClientesLocales =
+                clientesLocales.filter(
+                    c => String(c.id) !== String(id)
+                );
+            localStorage.setItem(
+                "clientesLocales",
+                JSON.stringify(nuevosClientesLocales)
+            );
+        } else {
             setEliminando(true);
             const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, {
                 method: "DELETE",
@@ -62,6 +84,7 @@ function DetalleCliente() {
             if (!respuesta.ok) {
                 throw new Error("No se pudo eliminar el cliente");
             }
+        }
             setModalAbierto(false);
             setMensajeExito(true);
             setTimeout(() => navigate("/clientes"), 1500);

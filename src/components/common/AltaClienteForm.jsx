@@ -39,25 +39,25 @@ function AltaClienteForm({ onClienteCreado, onCancelar }) {
           phone: telefono,
         }),
       });
-
       if (respuesta.status !== 200 && respuesta.status !== 201) {
         throw new Error("No se pudo crear el cliente");
       }
-
-      const nuevoCliente = await respuesta.json();
-
       const clienteCompleto = {
-        id: nuevoCliente.id,
+        id: Date.now(),
         name: { firstname: nombre, lastname: apellido },
         email,
         address: { city: ciudad },
         phone: telefono,
       };
-
+      const clientesLocales = JSON.parse(localStorage.getItem("clientesLocales")) || [];
+      clientesLocales.push(clienteCompleto);
+      localStorage.setItem(
+        "clientesLocales",
+        JSON.stringify(clientesLocales)
+      );
       if (onClienteCreado) {
         onClienteCreado(clienteCompleto);
       }
-
       setNombre("");
       setApellido("");
       setEmail("");
@@ -72,7 +72,7 @@ function AltaClienteForm({ onClienteCreado, onCancelar }) {
   };
 
   return (
-     <Box sx={{ padding: 3, margin: "0 auto", minWidth: 320, width: "100%", width: { xs: "100%", md: 600 } }}>
+    <Box sx={{ padding: 3, margin: "0 auto", minWidth: 320, width: "100%", width: { xs: "100%", md: 600 } }}>
       <Typography variant="h6" gutterBottom>
         Alta de Cliente
       </Typography>

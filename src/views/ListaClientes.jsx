@@ -50,7 +50,9 @@ function ListaClientes() {
         const respuesta = await fetch("https://fakestoreapi.com/users");
         if (!respuesta.ok) throw new Error("No se pudo obtener la lista de clientes");
         const datos = await respuesta.json();
-        setClientes(datos);
+        const clientesLocales =
+        JSON.parse(localStorage.getItem("clientesLocales")) || [];
+        setClientes([...datos, ...clientesLocales]);
       } catch (err) {
         setError(err.message);
       } finally {
@@ -77,16 +79,28 @@ function ListaClientes() {
   const handleEliminar = async (id) => {
     const confirmar = window.confirm("¿Seguro que querés eliminar este cliente?");
     if (!confirmar) return;
+    const clientesLocales = JSON.parse(localStorage.getItem("clientesLocales")) || [];
+    const esLocal = clientesLocales.some(c => String(c.id) === String(id));
     const clienteAEliminar = clientes.find((c) => c.id === id);
     setEliminandoId(id);
     try {
-      const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, { method: "DELETE" });
-      if (!respuesta.ok) throw new Error("No se pudo eliminar el cliente");
-      setClientes((prev) => prev.filter((c) => c.id !== id));
-      setMensajeExito("Cliente eliminado correctamente");
-      if (clienteAEliminar) {
-        registrarActividad("baja", `Se eliminó el cliente ${clienteAEliminar.name.firstname} ${clienteAEliminar.name.lastname}`);
-      }
+      if (esLocal) {
+        const nuevosClientesLocales =
+          clientesLocales.filter(
+            c => String(c.id) !== String(id)
+          );
+        localStorage.setItem(
+          "clientesLocales",
+          JSON.stringify(nuevosClientesLocales)
+        );
+      } else {
+        const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, { method: "DELETE" });
+        if (!respuesta.ok) throw new Error("No se pudo eliminar el cliente");
+        setClientes((prev) => prev.filter((c) => c.id !== id));
+        setMensajeExito("Cliente eliminado correctamente");
+        if (clienteAEliminar) {
+          registrarActividad("baja", `Se eliminó el cliente ${clienteAEliminar.name.firstname} ${clienteAEliminar.name.lastname}`);
+        }}
     } catch (err) {
       setError("No se pudo eliminar el cliente");
     } finally {
