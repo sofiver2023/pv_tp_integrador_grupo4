@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAdmin } from '../../context/AdminContext';
-import { AppBar, Toolbar, Typography, Box, Button, IconButton, Menu, MenuItem, useMediaQuery, useTheme } from '@mui/material';
+import { AppBar, Toolbar, Typography, Box, Button, IconButton, Menu, MenuItem, useMediaQuery, useTheme, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import LogoutIcon from '@mui/icons-material/Logout';
 import logo from "../../assets/logo_pv.png";
 
 const Header = () => {
@@ -75,21 +76,21 @@ const Header = () => {
                             <Typography>Hola, <b>{admin.nombre}</b></Typography>
                             <Typography variant="body2" sx={{ opacity: .8 }}>{admin.sector}</Typography>
                         </Box>
-                        <Button
-                            color="inherit"
-                            variant="outlined"
-                            onClick={handleLogout}
-                            sx={{
-                                color: "white",
-                                borderColor: "rgba(255,255,255,.5)",
-                                "&:hover": {
-                                    borderColor: "white",
-                                    bgcolor: "rgba(255,255,255,.08)"
-                                }
-                            }}
-                        >
-                            Cerrar Sesión
-                        </Button>
+                        <Tooltip title="Cerrar Sesión">
+                            <IconButton
+                                onClick={handleLogout}
+                                aria-label="Cerrar sesión"
+                                sx={{
+                                    color: "#ff5252",
+                                    bgcolor: "rgba(255,255,255,.9)",
+                                    "&:hover": {
+                                        bgcolor: "white",
+                                    }
+                                }}
+                            >
+                                <LogoutIcon />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
                 )}
             </Toolbar>

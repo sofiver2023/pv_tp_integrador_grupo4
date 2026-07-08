@@ -1,19 +1,18 @@
+import { useState, useEffect } from 'react';
 import {
-  Box, Typography, Grid, Card, CardContent,
-  Table, TableBody, TableCell, TableContainer,
-  TableHead, TableRow, Paper, LinearProgress, Chip, Container,
-  Stack,
-  Button
+  Box, Typography, Grid, Button, Chip
 } from '@mui/material';
-import PeopleIcon from '@mui/icons-material/People';
-import FolderIcon from '@mui/icons-material/Folder';
-import TaskIcon from '@mui/icons-material/Task';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import imageDashboard from '../assets/secretaria.png'
 import Divider from '@mui/material/Divider';
-
+import { obtenerActividades, tiempoRelativo } from '../utils/actividad';
 
 const Dashboard = () => {
+  const [actividades, setActividades] = useState([]);
+
+  useEffect(() => {
+    setActividades(obtenerActividades());
+  }, []);
+
   return (
     <Box>
       <Box sx={{
@@ -23,7 +22,6 @@ const Dashboard = () => {
         borderRadius: { xs: 0, lg: 2 },
         boxShadow: 5,
       }}>
-
         <Grid container>
           <Box
             component="img"
@@ -35,7 +33,6 @@ const Dashboard = () => {
               height: 'auto'
             }}
           />
-
           <Box>
             <Box>
               <Typography sx={{ fontSize: { xs: '2rem', fontWeight: 800 } }}>¡Hola!</Typography>
@@ -45,7 +42,6 @@ const Dashboard = () => {
           </Box>
         </Grid>
       </Box>
-
       <Grid container spacing={2} sx={{ m: { xs: '1rem', lg: '0px' } }}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Box
@@ -76,15 +72,46 @@ const Dashboard = () => {
           }}>
             <Typography sx={{ fontWeight: 600, fontSize: '1.2rem', py: '10px' }}>Actividad Reciente</Typography>
             <Divider />
-            <Box sx={{ textAlign: 'center', py: '10px' }}>
-              <Typography sx={{ fontWeight: 400, fontSize: '.9rem' }}>Tu registro de actividad aparecerá aquí.</Typography>
-            </Box>
+            {actividades.length === 0 ? (
+              <Box sx={{ textAlign: 'center', py: '10px' }}>
+                <Typography sx={{ fontWeight: 400, fontSize: '.9rem' }}>Tu registro de actividad aparecerá aquí.</Typography>
+              </Box>
+            ) : (
+              <Box sx={{ py: '10px' }}>
+                {actividades.map((act) => (
+                  <Box
+                    key={act.id}
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      py: 1,
+                      borderBottom: '1px solid #eee',
+                    }}
+                  >
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Chip
+                        label={act.tipo === 'alta' ? 'Alta' : 'Baja'}
+                        size="small"
+                        sx={{
+                          bgcolor: act.tipo === 'alta' ? '#E8F5E9' : '#FFEBEE',
+                          color: act.tipo === 'alta' ? '#2E7D32' : '#C62828',
+                          fontWeight: 600,
+                        }}
+                      />
+                      <Typography sx={{ fontSize: '.85rem' }}>{act.mensaje}</Typography>
+                    </Box>
+                    <Typography sx={{ fontSize: '.75rem', color: 'text.secondary', whiteSpace: 'nowrap', ml: 1 }}>
+                      {tiempoRelativo(act.fecha)}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+            )}
           </Box>
         </Grid>
       </Grid>
-
     </Box>
   );
 };
-
 export default Dashboard;

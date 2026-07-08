@@ -18,6 +18,7 @@ import {
   IconButton,
   Button,
   InputAdornment,
+  Tooltip,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
@@ -28,6 +29,7 @@ import AltaClienteForm from "../components/common/AltaClienteForm";
 import Footer from "../components/layout/Footer.jsx";
 import Header from "../components/layout/Header.jsx";
 import { useAdmin } from "../context/AdminContext";
+import { registrarActividad } from "../utils/actividad";
 
 function ListaClientes() {
   const { admin } = useAdmin();
@@ -69,17 +71,22 @@ function ListaClientes() {
     setClientes((prev) => [...prev, nuevoCliente]);
     setModalAbierto(false);
     setMensajeExito("Cliente creado correctamente");
+    registrarActividad("alta", `Se agregó el cliente ${nuevoCliente.name.firstname} ${nuevoCliente.name.lastname}`);
   };
 
   const handleEliminar = async (id) => {
     const confirmar = window.confirm("¿Seguro que querés eliminar este cliente?");
     if (!confirmar) return;
+    const clienteAEliminar = clientes.find((c) => c.id === id);
     setEliminandoId(id);
     try {
       const respuesta = await fetch(`https://fakestoreapi.com/users/${id}`, { method: "DELETE" });
       if (!respuesta.ok) throw new Error("No se pudo eliminar el cliente");
       setClientes((prev) => prev.filter((c) => c.id !== id));
       setMensajeExito("Cliente eliminado correctamente");
+      if (clienteAEliminar) {
+        registrarActividad("baja", `Se eliminó el cliente ${clienteAEliminar.name.firstname} ${clienteAEliminar.name.lastname}`);
+      }
     } catch (err) {
       setError("No se pudo eliminar el cliente");
     } finally {
@@ -204,23 +211,28 @@ function ListaClientes() {
                   </CardContent>
 
                   <CardActions sx={{ justifyContent: "center", paddingBottom: 2, gap: 1 }}>
-                    <Button
-                      variant="contained"
-                      startIcon={<VisibilityIcon />}
-                      sx={{ bgcolor: "background.paper", color: "var(--primary)", "&:hover": { bgcolor: "#e0e0e0" } }}
-                      onClick={() => navigate(`/clientes/${cliente.id}`)}
-                    >
-                      Ver Perfil
-                    </Button>
+                    <Tooltip title="Ver Perfil">
+                      <IconButton
+                        sx={{ bgcolor: "background.paper", color: "var(--primary)", "&:hover": { bgcolor: "#e0e0e0" } }}
+                        onClick={() => navigate(`/clientes/${cliente.id}`)}
+                        aria-label="Ver perfil"
+                      >
+                        <VisibilityIcon />
+                      </IconButton>
+                    </Tooltip>
                     {admin?.sector === "Gerencia" && (
                       <IconButton
-                        sx={{ color: "var(--surface)" }}
+                        sx={{
+                          bgcolor: "background.paper",
+                          color: "#d32f2f",
+                          "&:hover": { bgcolor: "#ffe5e5" }
+                        }}
                         aria-label="Eliminar cliente"
                         onClick={() => handleEliminar(cliente.id)}
                         disabled={eliminandoId === cliente.id}
                       >
                         {eliminandoId === cliente.id ? (
-                          <CircularProgress size={20} sx={{ color: "var(--surface)" }} />
+                          <CircularProgress size={20} sx={{ color: "#d32f2f" }} />
                         ) : (
                           <DeleteIcon />
                         )}

@@ -5,15 +5,13 @@ import AssignmentOutlinedIcon from '@mui/icons-material/AssignmentOutlined';
 import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-
 const navItems = [
-    { nombre: "Dashboard", ruta: "/dashboard", icono: <HomeOutlinedIcon /> },
-    { nombre: "Clientes", ruta: "/clientes", icono: <PeopleAltOutlinedIcon /> },
-    { nombre: "Tareas", ruta: "/tareas", icono: <AssignmentOutlinedIcon /> },
-    { nombre: "Reportes", ruta: "/reportes", icono: <InsertChartOutlinedIcon /> },
-    { nombre: "Ayuda", ruta: "/ayuda", icono: <HelpOutlineOutlinedIcon /> },
+    { nombre: "Dashboard", ruta: "/dashboard", icono: <HomeOutlinedIcon />, color: "#1565C0" },
+    { nombre: "Clientes", ruta: "/clientes", icono: <PeopleAltOutlinedIcon />, color: "#00897B" },
+    { nombre: "Tareas", ruta: "/tareas", icono: <AssignmentOutlinedIcon />, color: "#EF6C00" },
+    { nombre: "Reportes", ruta: "/reportes", icono: <InsertChartOutlinedIcon />, color: "#8E24AA" },
+    { nombre: "Ayuda", ruta: "/ayuda", icono: <HelpOutlineOutlinedIcon />, color: "#546E7A" },
 ];
-
 function Navbar() {
     return (
         <Stack sx={{
@@ -42,8 +40,6 @@ function Navbar() {
                 alignItems: { xs: 'center', lg: 'start' },
                 gap: 2,
                 px: { xs: 0, lg: 1 }
-
-
             }}>
                 {navItems.map((item) => (
                     <Button
@@ -51,16 +47,15 @@ function Navbar() {
                         key={item.nombre}
                         component={NavLink}
                         to={item.ruta}
-                        color="inherit"
                         sx={{
                             display: 'flex',
                             minWidth: { xs: 'auto', lg: '100%' },
-                            px: { xs: 0, lg: 2 },
+                            px: { xs: 1, lg: 2 },
                             textTransform: 'none',
                             justifyContent: { xs: 'space-evenly', lg: 'flex-start' },
                             alignItems: { xs: 'center' },
                             gap: { xs: 0, lg: 2 },
-                            px: { xs: 1, lg: 2 },
+                            color: item.color,
                             "&.active": {
                                 color: ("var(--primary)"),
                                 fontWeight: 700,
@@ -72,7 +67,8 @@ function Navbar() {
                         {item.icono}
                         <Typography sx={{
                             display: { xs: 'none', md: 'block' },
-                            fontSize: { md: 'auto', lg: '1rem', xl: '1.3rem' }
+                            fontSize: { md: 'auto', lg: '1rem', xl: '1.3rem' },
+                            color: 'inherit',
                         }}>
                             {item.nombre}</Typography>
                     </Button>
@@ -81,5 +77,4 @@ function Navbar() {
         </Stack >
     );
 }
-
 export default Navbar;

@@ -18,6 +18,8 @@ import {
     DialogActions,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { useAdmin } from "../context/AdminContext";
 
 function DetalleCliente() {
@@ -123,7 +125,12 @@ function DetalleCliente() {
                     <Divider sx={{ my: 2 }} />
 
                     <Box sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
-                        <Button variant="contained" sx={{ borderRadius: 2 }} onClick={() => navigate("/clientes")}>
+                        <Button
+                            variant="contained"
+                            startIcon={<ArrowBackIcon />}
+                            sx={{ borderRadius: 2 }}
+                            onClick={() => navigate("/clientes")}
+                        >
                             Volver
                         </Button>
 
@@ -131,11 +138,12 @@ function DetalleCliente() {
                             <Button
                                 variant="contained"
                                 color="error"
+                                startIcon={<DeleteIcon />}
                                 sx={{ borderRadius: 2 }}
                                 onClick={() => setModalAbierto(true)}
                                 disabled={eliminando}
                             >
-                                Eliminar Cliente
+                                Eliminar
                             </Button>
                         )}
                     </Box>
