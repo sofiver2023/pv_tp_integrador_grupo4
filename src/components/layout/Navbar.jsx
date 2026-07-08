@@ -6,7 +6,7 @@ import PeopleAltOutlinedIcon from '@mui/icons-material/PeopleAltOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 const navItems = [
-    { nombre: "Dashboard", ruta: "/dashboard", icono: <HomeOutlinedIcon />, color: "#1565C0" },
+    { nombre: "Inicio", ruta: "/inicio", icono: <HomeOutlinedIcon />, color: "#1565C0" },
     { nombre: "Clientes", ruta: "/clientes", icono: <PeopleAltOutlinedIcon />, color: "#00897B" },
     { nombre: "Tareas", ruta: "/tareas", icono: <AssignmentOutlinedIcon />, color: "#EF6C00" },
     { nombre: "Reportes", ruta: "/reportes", icono: <InsertChartOutlinedIcon />, color: "#8E24AA" },
