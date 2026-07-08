@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
-import { Box, Typography, Grid, Button, Chip
+import {
+  Box, Typography, Grid, Button, Chip
 } from '@mui/material';
 import imagenInicio from '../assets/secretaria.png'
 import Divider from '@mui/material/Divider';
+import Carrusel from '../components/layout/Carrusel.jsx';
+import { useAdmin } from '../context/AdminContext.jsx';
 import { obtenerActividades, tiempoRelativo } from '../utils/actividad';
 
 const Inicio = () => {
+  const { admin } = useAdmin();
   const [actividades, setActividades] = useState([]);
 
   useEffect(() => {
@@ -21,7 +25,10 @@ const Inicio = () => {
         borderRadius: { xs: 0, lg: 2 },
         boxShadow: 5,
       }}>
-        <Grid container>
+        <Grid container sx={{
+          justifyContent: { xs: 'center', md: 'center', lg: 'flex-start' },
+          alignItems: 'center'
+        }}>
           <Box
             component="img"
             src={imagenInicio}
@@ -34,9 +41,10 @@ const Inicio = () => {
           />
           <Box>
             <Box>
-              <Typography sx={{ fontSize: { xs: '2rem', fontWeight: 800 } }}>¡Hola!</Typography>
+              <Typography sx={{ fontSize: { xs: '2rem', fontWeight: 800 } }}>
+                ¡Hola, {admin.nombre}!
+              </Typography>
               <Typography sx={{ fontSize: { xs: '1.5rem', fontWeight: 400 } }}>Comencemos a organizar tu día.</Typography>
-              <Typography sx={{ fontSize: { xs: '1rem', fontWeight: 800 } }}>Pasos de Inicio</Typography>
             </Box>
           </Box>
         </Grid>
@@ -55,8 +63,7 @@ const Inicio = () => {
             <Typography sx={{ fontWeight: 600, fontSize: '1.2rem', py: '10px' }}>Mis Tareas</Typography>
             <Divider />
             <Box sx={{ textAlign: 'center', py: '10px' }}>
-              <Typography sx={{ fontWeight: 400, fontSize: '.9rem' }}>No tienes tareas pendientes para hoy ¡Crea la primera!</Typography>
-              <Button>+ Nueva Tarea</Button>
+              <Carrusel />
             </Box>
           </Box>
         </Grid>

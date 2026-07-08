@@ -9,7 +9,8 @@ import Layout from './components/layout/Layout.jsx';
 import "./App.css";
 import Ayuda from './views/Ayuda.jsx';
 import Reportes from './views/Reportes.jsx';
-import Tareas from './views/Tareas.jsx';
+import ListaTareas from './views/ListaTareas.jsx';
+import { TareasProvider } from './context/TareasContext.jsx';
 
 const App = () => { 
   return (
@@ -43,7 +44,11 @@ const App = () => {
             element={
               <RutaProtegida>
                 <Layout>
-                  <Inicio />
+                  <AdminProvider>
+                    <TareasProvider>
+                      <Inicio />
+                    </TareasProvider>
+                  </AdminProvider>
                 </Layout>
               </RutaProtegida>
             }
@@ -53,7 +58,9 @@ const App = () => {
             element={
               <RutaProtegida>
                 <Layout>
-                  <Tareas />
+                  <TareasProvider>
+                    <ListaTareas />
+                  </TareasProvider>
                 </Layout>
               </RutaProtegida>
             }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogTitle,
@@ -13,29 +13,35 @@ import {
   Box
 } from "@mui/material";
 
-function AltaTarea({ open, onClose, onAgregar }) {
+function EditarTarea({ open, onClose, tarea, onEditar }) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [priority, setPriority] = useState("Baja");
+
+  useEffect(() => {
+    if (tarea) {
+      setTitle(tarea.title);
+      setDescription(tarea.description);
+      setPriority(tarea.priority);
+    }
+  }, [tarea]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!title.trim() || !description.trim()) return;
 
-    const fecha = new Date();
-    const createdAt = `${fecha.toLocaleDateString()}`;
-
-    onAgregar({ title, description, priority, createdAt });
-
-    setTitle("");
-    setDescription("");
-    setPriority("Baja");
+    onEditar({
+      ...tarea,
+      title,
+      description,
+      priority,
+    });
     onClose();
   };
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="xs">
-      <DialogTitle sx={{ fontWeight: "bold" }}>Nueva Tarea</DialogTitle>
+      <DialogTitle sx={{ fontWeight: "bold" }}>Editar Tarea</DialogTitle>
       <form onSubmit={handleSubmit}>
         <DialogContent>
           <Box sx={{ display: "flex", flexDirection: "column", gap: 2.5, pt: 1 }}>
@@ -71,11 +77,11 @@ function AltaTarea({ open, onClose, onAgregar }) {
         </DialogContent>
         <DialogActions sx={{ px: 3, pb: 3 }}>
           <Button onClick={onClose} color="inherit">Cancelar</Button>
-          <Button type="submit" variant="contained" color="primary">Guardar</Button>
+          <Button type="submit" variant="contained" color="primary">Actualizar</Button>
         </DialogActions>
       </form>
     </Dialog>
   );
 }
 
-export default AltaTarea;
+export default EditarTarea;

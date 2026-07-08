@@ -159,7 +159,7 @@ function ListaClientes() {
         )}
 
         {!cargando && !error && (
-          <Grid container spacing={3} justifyContent="center">
+          <Grid container spacing={3} sx={{justifyContent: 'center' }}>
             {clientesFiltrados.map((cliente) => (
               <Grid item xs={12} sm={6} md={4} key={cliente.id}>
                 <Card
