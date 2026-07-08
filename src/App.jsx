@@ -4,7 +4,7 @@ import Login from './views/Login.jsx';
 import ListaClientes from "./views/ListaClientes";
 import RutaProtegida from './components/layout/RutaProtegida.jsx';
 import DetalleCliente from "./views/DetalleCliente";
-import Dashboard from './views/Dashboard.jsx';
+import Inicio from './views/Inicio.jsx';
 import Layout from './components/layout/Layout.jsx';
 import "./App.css";
 import Ayuda from './views/Ayuda.jsx';
@@ -39,11 +39,11 @@ const App = () => {
             }
           />
 
-          <Route path="/dashboard"
+          <Route path="/inicio"
             element={
               <RutaProtegida>
                 <Layout>
-                  <Dashboard />
+                  <Inicio />
                 </Layout>
               </RutaProtegida>
             }

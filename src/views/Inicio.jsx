@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import {
-  Box, Typography, Grid, Button, Chip
+import { Box, Typography, Grid, Button, Chip
 } from '@mui/material';
-import imageDashboard from '../assets/secretaria.png'
+import imagenInicio from '../assets/secretaria.png'
 import Divider from '@mui/material/Divider';
 import { obtenerActividades, tiempoRelativo } from '../utils/actividad';
 
-const Dashboard = () => {
+const Inicio = () => {
   const [actividades, setActividades] = useState([]);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const Dashboard = () => {
         <Grid container>
           <Box
             component="img"
-            src={imageDashboard}
+            src={imagenInicio}
             alt="Secretaria escritorio"
             sx={{
               maxWidth: { xs: 200, lg: 300, xl: 400 },
@@ -114,4 +113,4 @@ const Dashboard = () => {
     </Box>
   );
 };
-export default Dashboard;
+export default Inicio;

@@ -18,7 +18,7 @@ const Login = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         login(nombre, sector);
-        navigate('/clientes');
+        navigate('/inicio');
     };
     return (
         <Box sx={{

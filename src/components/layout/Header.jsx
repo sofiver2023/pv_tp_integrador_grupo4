@@ -65,7 +65,7 @@ const Header = () => {
                                     <Typography variant="caption" sx={{ opacity: 0.7 }}>{admin.sector}</Typography>
                                 </Box>
                             </MenuItem>
-                            <MenuItem onClick={handleCloseMenu} component={Link} to="/dashboard">Dashboard</MenuItem>
+                            <MenuItem onClick={handleCloseMenu} component={Link} to="/inicio">Inicio</MenuItem>
                             <MenuItem onClick={handleCloseMenu} component={Link} to="/clientes">Clientes</MenuItem>
                             <MenuItem onClick={handleLogout} sx={{ color: 'error.main' }}>Cerrar Sesión</MenuItem>
                         </Menu>
