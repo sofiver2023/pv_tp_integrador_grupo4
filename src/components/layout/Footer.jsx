@@ -55,7 +55,7 @@ function Footer() {
               href="https://facebook.com"
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ color: "grey.400", "&:hover": { color: "white" } }}
+              sx={{ color: "#1877F2", "&:hover": { opacity: 0.8 } }}
               aria-label="Facebook"
             >
               <FacebookIcon />
@@ -65,7 +65,7 @@ function Footer() {
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ color: "grey.400", "&:hover": { color: "white" } }}
+              sx={{ color: "#E4405F", "&:hover": { opacity: 0.8 } }}
               aria-label="Instagram"
             >
               <InstagramIcon />
@@ -75,7 +75,7 @@ function Footer() {
               href="https://twitter.com"
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ color: "grey.400", "&:hover": { color: "white" } }}
+              sx={{ color: "#1DA1F2", "&:hover": { opacity: 0.8 } }}
               aria-label="Twitter"
             >
               <TwitterIcon />
@@ -85,7 +85,7 @@ function Footer() {
               href="https://linkedin.com"
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ color: "grey.400", "&:hover": { color: "white" } }}
+              sx={{ color: "#0A66C2", "&:hover": { opacity: 0.8 } }}
               aria-label="LinkedIn"
             >
               <LinkedInIcon />
@@ -95,7 +95,7 @@ function Footer() {
               href="https://github.com/sofiver2023/pv_tp_integrador_grupo4"
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ color: "grey.400", "&:hover": { color: "white" } }}
+              sx={{ color: "#ffffff", "&:hover": { opacity: 0.8 } }}
               aria-label="GitHub"
             >
               <GitHubIcon />
