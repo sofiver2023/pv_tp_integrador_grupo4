@@ -1,5 +1,6 @@
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, PieChart, Pie, Cell, LineChart, Line, Legend, ResponsiveContainer } from 'recharts';
 import useClientes from '../hooks/useClientes';
+import { obtenerActividades } from '../utils/actividad';
 
 const COLORS = ['#4F86C6', '#F2994A', '#9B51E0', '#27AE60', '#EB5757'];
 
@@ -37,10 +38,23 @@ function rankingCiudades(clientes, top = 3) {
   return datos.sort((a, b) => b.value - a.value).slice(0, top);
 }
 
+function agruparActividadPorDia(actividades) {
+  const conteo = {};
+  actividades.forEach((act) => {
+    const dia = new Date(act.fecha).toLocaleDateString('es', { day: '2-digit', month: 'short' });
+    if (!conteo[dia]) conteo[dia] = { dia, altas: 0, bajas: 0 };
+    if (act.tipo === 'alta') conteo[dia].altas += 1;
+    if (act.tipo === 'baja') conteo[dia].bajas += 1;
+  });
+  return Object.values(conteo).reverse();
+}
+
 function Reportes() {
   const clientes = useClientes();
+  const actividades = obtenerActividades();
   const datosPorCiudad = agruparPorCiudad(clientes);
   const datosPorMes = agruparPorMes(clientes);
+  const datosActividad = agruparActividadPorDia(actividades);
   const nuevosEsteMes = contarNuevosPorMes(clientes, 0);
   const nuevosMesPasado = contarNuevosPorMes(clientes, 1);
   const diferencia = nuevosEsteMes - nuevosMesPasado;
@@ -103,6 +117,27 @@ function Reportes() {
               <Tooltip />
             </PieChart>
           </ResponsiveContainer>
+        </div>
+
+        <div className="chart-card">
+          <h3>Línea de Tiempo de Actividad</h3>
+          {datosActividad.length === 0 ? (
+            <p style={{ textAlign: 'center', color: '#888', padding: '2rem 0' }}>
+              Aún no hay actividad registrada. Se mostrará aquí a medida que agregues o elimines clientes.
+            </p>
+          ) : (
+            <ResponsiveContainer width="100%" height={250}>
+              <LineChart data={datosActividad}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="dia" />
+                <YAxis allowDecimals={false} />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="altas" name="Altas" stroke="#27AE60" strokeWidth={2} />
+                <Line type="monotone" dataKey="bajas" name="Bajas" stroke="#EB5757" strokeWidth={2} />
+              </LineChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
         <div className="chart-card">
