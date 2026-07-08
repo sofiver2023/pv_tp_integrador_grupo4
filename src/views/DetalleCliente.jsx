@@ -11,6 +11,11 @@ import {
     Avatar,
     Snackbar,
     Divider,
+    Dialog,
+    DialogTitle,
+    DialogContent,
+    DialogContentText,
+    DialogActions,
 } from "@mui/material";
 import PersonIcon from "@mui/icons-material/Person";
 import { useAdmin } from "../context/AdminContext";
@@ -25,6 +30,7 @@ function DetalleCliente() {
     const [error, setError] = useState(null);
     const [eliminando, setEliminando] = useState(false);
     const [mensajeExito, setMensajeExito] = useState(false);
+    const [modalAbierto, setModalAbierto] = useState(false);
 
     useEffect(() => {
         const obtenerCliente = async () => {
@@ -54,10 +60,12 @@ function DetalleCliente() {
             if (!respuesta.ok) {
                 throw new Error("No se pudo eliminar el cliente");
             }
+            setModalAbierto(false);
             setMensajeExito(true);
             setTimeout(() => navigate("/clientes"), 1500);
         } catch (err) {
             setError(err.message);
+            setModalAbierto(false);
         } finally {
             setEliminando(false);
         }
@@ -76,6 +84,7 @@ function DetalleCliente() {
     }
 
     const { street, number, zipcode, city } = cliente.address;
+    const nombreCompleto = `${cliente.name.firstname} ${cliente.name.lastname}`;
 
     return (
         <Box sx={{ maxWidth: 600, margin: "40px auto" }}>
@@ -86,7 +95,7 @@ function DetalleCliente() {
                     </Avatar>
 
                     <Typography variant="h5">
-                        {cliente.name.firstname} {cliente.name.lastname}
+                        {nombreCompleto}
                     </Typography>
 
                     <Typography sx={{ mt: 2 }}>
@@ -113,18 +122,8 @@ function DetalleCliente() {
 
                     <Divider sx={{ my: 2 }} />
 
-                    {/*<Typography variant="subtitle1" fontWeight="bold">
-                        Credenciales de Acceso
-                    </Typography>
-                    <Typography>
-                        <strong>Usuario:</strong> {cliente.username}
-                    </Typography>
-                    <Typography>
-                        <strong>Contraseña:</strong> {cliente.password}
-                    </Typography>*/}
-
                     <Box sx={{ mt: 3, display: "flex", justifyContent: "center", gap: 2 }}>
-                        <Button variant="contained" onClick={() => navigate("/clientes")}>
+                        <Button variant="contained" sx={{ borderRadius: 2 }} onClick={() => navigate("/clientes")}>
                             Volver
                         </Button>
 
@@ -132,15 +131,39 @@ function DetalleCliente() {
                             <Button
                                 variant="contained"
                                 color="error"
-                                onClick={handleEliminar}
+                                sx={{ borderRadius: 2 }}
+                                onClick={() => setModalAbierto(true)}
                                 disabled={eliminando}
                             >
-                                {eliminando ? "Eliminando..." : "Eliminar Cliente de la Base de Datos"}
+                                Eliminar Cliente
                             </Button>
                         )}
                     </Box>
                 </CardContent>
             </Card>
+
+            <Dialog open={modalAbierto} onClose={() => setModalAbierto(false)}>
+                <DialogTitle>¿Eliminar a {nombreCompleto}?</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        Esta acción no se puede deshacer. El cliente se eliminará permanentemente de la base de datos.
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={() => setModalAbierto(false)}>
+                        Cancelar
+                    </Button>
+                    <Button
+                        onClick={handleEliminar}
+                        color="error"
+                        variant="contained"
+                        disabled={eliminando}
+                        autoFocus
+                    >
+                        {eliminando ? "Eliminando..." : "Sí, eliminar"}
+                    </Button>
+                </DialogActions>
+            </Dialog>
 
             <Snackbar
                 open={mensajeExito}

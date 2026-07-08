@@ -129,7 +129,7 @@ function ListaClientes() {
                 <Card
                   elevation={3}
                   sx={{
-                    height: "100%",
+                    height: 320,
                     display: "flex",
                     flexDirection: "column",
                     transition: "transform 0.2s, box-shadow 0.2s",
@@ -158,13 +158,32 @@ function ListaClientes() {
                         {cliente.name.firstname} {cliente.name.lastname}
                       </Typography>
                     </Box>
-                    <Typography variant="body2" sx={{ color: "var(--surface)" }} gutterBottom>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "var(--surface)",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                      gutterBottom
+                      title={cliente.email}
+                    >
                       📧 {cliente.email}
                     </Typography>
                     <Typography variant="body2" sx={{ color: "var(--surface)" }} gutterBottom>
                       📞 {cliente.phone}
                     </Typography>
-                    <Typography variant="body2" sx={{ color: "var(--surface)" }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: "var(--surface)",
+                        whiteSpace: "nowrap",
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                      }}
+                      title={cliente.address.city}
+                    >
                       📍 {cliente.address.city}
                     </Typography>
                   </CardContent>
@@ -178,13 +197,15 @@ function ListaClientes() {
                     >
                       Ver Perfil
                     </Button>
-                    <IconButton
-                      sx={{ color: "var(--surface)" }}
-                      aria-label="Eliminar cliente"
-                      onClick={() => handleEliminar(cliente.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                    {admin?.sector === "Gerencia" && (
+                      <IconButton
+                        sx={{ color: "var(--surface)" }}
+                        aria-label="Eliminar cliente"
+                        onClick={() => handleEliminar(cliente.id)}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
+                    )}
                   </CardActions>
                 </Card>
               </Grid>
